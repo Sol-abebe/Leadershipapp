@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Competency Learning & Assessment Platform</title>
+    <title>Competency Learning & Assessment System</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -27,10 +27,10 @@
                             900: '#312e81',
                         },
                         dark: {
-                            bg: '#0f172a',
-                            card: '#1e293b',
-                            border: '#334155',
-                            hover: '#334155'
+                            bg: '#0b0f19',
+                            card: '#151d30',
+                            border: '#243049',
+                            hover: '#1e293b'
                         }
                     },
                     fontFamily: {
@@ -42,87 +42,69 @@
         }
     </script>
     <style>
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: #243049; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
         .glass-card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
+            background: rgba(21, 29, 48, 0.75);
+            backdrop-filter: blur(14px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .glass-nav {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
+            background: rgba(11, 15, 25, 0.9);
+            backdrop-filter: blur(18px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         @media print {
             .no-print { display: none !important; }
             body { background: white !important; color: black !important; }
-            .print-only { display: block !important; }
-            .glass-card { background: none !important; border: 1px solid #ccc !important; }
+            .glass-card { background: none !important; border: 1px solid #ccc !important; text-color: black !important; }
+            .text-white, .text-slate-100, .text-slate-200, .text-slate-300 { color: black !important; }
         }
     </style>
 </head>
 <body class="bg-dark-bg text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
 
-    <!-- TOP NAVBAR -->
+    <!-- HEADER NAVIGATION -->
     <header class="sticky top-0 z-50 glass-nav no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Logo & Title -->
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center shadow-lg shadow-brand-500/30">
                         <i class="fa-solid font-bold text-white text-xl fa-brain"></i>
                     </div>
                     <div>
-                        <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Competency Suite</span>
-                        <span class="hidden sm:inline-block text-xs px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 ml-2">v2.5 Pro</span>
+                        <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Executive Competency Suite</span>
+                        <span class="hidden sm:inline-block text-xs px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 ml-2">Mastery Edition</span>
                     </div>
+                </div>
+
+                <!-- Global Search Input -->
+                <div class="hidden lg:flex items-center relative w-64">
+                    <input type="text" id="global-search" onkeyup="handleSearch()" placeholder="Search modules & exam..." class="w-full bg-slate-900/80 border border-slate-700/80 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-brand-500">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 text-slate-500 text-xs"></i>
                 </div>
 
                 <!-- Navigation Tabs -->
-                <nav class="hidden md:flex space-x-1 lg:space-x-2">
-                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-brand-400 bg-brand-500/10 border border-brand-500/20">
+                <nav class="hidden md:flex space-x-1">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg text-xs font-medium transition-all flex items-center space-x-2 text-brand-400 bg-brand-500/10 border border-brand-500/20">
                         <i class="fa-solid fa-chart-pie"></i><span>Dashboard</span>
                     </button>
-                    <button onclick="switchTab('creativity')" id="nav-creativity" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                    <button onclick="switchTab('creativity')" id="nav-creativity" class="nav-btn px-3 py-2 rounded-lg text-xs font-medium transition-all flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-slate-800">
                         <i class="fa-solid fa-lightbulb text-amber-400"></i><span>Module 1: Creativity</span>
                     </button>
-                    <button onclick="switchTab('leadership')" id="nav-leadership" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                    <button onclick="switchTab('leadership')" id="nav-leadership" class="nav-btn px-3 py-2 rounded-lg text-xs font-medium transition-all flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-slate-800">
                         <i class="fa-solid fa-users-gear text-emerald-400"></i><span>Module 2: Role Leadership</span>
                     </button>
-                    <button onclick="switchTab('tools')" id="nav-tools" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-slate-800">
-                        <i class="fa-solid fa-sliders text-cyan-400"></i><span>Interactive Tools</span>
+                    <button onclick="switchTab('exam')" id="nav-exam" class="nav-btn px-3 py-2 rounded-lg text-xs font-medium transition-all flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-graduation-cap text-purple-400"></i><span>Test Bank (70 MCQs)</span>
                     </button>
-                    <button onclick="switchTab('exam')" id="nav-exam" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-slate-800">
-                        <i class="fa-solid fa-graduation-cap text-purple-400"></i><span>Test Bank (70+ MCQs)</span>
+                    <button onclick="switchTab('tools')" id="nav-tools" class="nav-btn px-3 py-2 rounded-lg text-xs font-medium transition-all flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-sliders text-cyan-400"></i><span>Interactive Tools</span>
                     </button>
                 </nav>
 
-                <!-- Right Stats Badge -->
-                <div class="hidden lg:flex items-center space-x-4 border-l border-slate-800 pl-4">
-                    <div class="text-right">
-                        <div class="text-xs text-slate-400">Overall Progress</div>
-                        <div class="text-sm font-bold text-emerald-400" id="overall-progress-pct">0% Completed</div>
-                    </div>
-                    <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700">
-                        <i class="fa-solid fa-trophy text-amber-400 text-sm"></i>
-                    </div>
-                </div>
-
-                <!-- Mobile Menu Button -->
                 <div class="flex md:hidden">
                     <button onclick="toggleMobileMenu()" class="text-slate-400 hover:text-white p-2">
                         <i class="fa-solid fa-bars text-xl"></i>
@@ -131,60 +113,61 @@
             </div>
         </div>
 
-        <!-- Mobile Dropdown Navigation -->
         <div id="mobile-menu" class="hidden md:hidden border-b border-slate-800 bg-slate-900 px-4 pt-2 pb-4 space-y-1">
-            <button onclick="switchTab('dashboard'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800 flex items-center space-x-2">
+            <button onclick="switchTab('dashboard'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800 flex items-center space-x-2 text-xs">
                 <i class="fa-solid fa-chart-pie text-indigo-400"></i><span>Dashboard</span>
             </button>
-            <button onclick="switchTab('creativity'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800 flex items-center space-x-2">
+            <button onclick="switchTab('creativity'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800 flex items-center space-x-2 text-xs">
                 <i class="fa-solid fa-lightbulb text-amber-400"></i><span>Module 1: Creativity</span>
             </button>
-            <button onclick="switchTab('leadership'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800 flex items-center space-x-2">
+            <button onclick="switchTab('leadership'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800 flex items-center space-x-2 text-xs">
                 <i class="fa-solid fa-users-gear text-emerald-400"></i><span>Module 2: Role Leadership</span>
             </button>
-            <button onclick="switchTab('tools'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800 flex items-center space-x-2">
-                <i class="fa-solid fa-sliders text-cyan-400"></i><span>Interactive Tools</span>
+            <button onclick="switchTab('exam'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800 flex items-center space-x-2 text-xs">
+                <i class="fa-solid fa-graduation-cap text-purple-400"></i><span>Test Bank (70 MCQs)</span>
             </button>
-            <button onclick="switchTab('exam'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800 flex items-center space-x-2">
-                <i class="fa-solid fa-graduation-cap text-purple-400"></i><span>Test Bank (70+ MCQs)</span>
+            <button onclick="switchTab('tools'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800 flex items-center space-x-2 text-xs">
+                <i class="fa-solid fa-sliders text-cyan-400"></i><span>Interactive Tools</span>
             </button>
         </div>
     </header>
 
-    <!-- MAIN BODY CONTAINER -->
+    <!-- MAIN CONTAINER -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
         <!-- ========================================== -->
-        <!-- TAB 1: DASHBOARD MAIN -->
+        <!-- TAB 1: DASHBOARD -->
         <!-- ========================================== -->
         <section id="tab-dashboard" class="tab-content space-y-6">
-            <!-- Hero Banner -->
             <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-900 via-indigo-950 to-slate-900 border border-brand-500/20 p-8 shadow-2xl">
                 <div class="relative z-10 max-w-3xl space-y-4">
-                    <span class="px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-brand-500/20 text-brand-300 rounded-full border border-brand-500/30">Executive Competency Framework</span>
-                    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Master Leadership & Applied Creativity</h1>
-                    <p class="text-slate-300 text-base leading-relaxed">
-                        An end-to-end interactive learning environment designed for public & private sector leaders. Explore 31 detailed curriculum chapters, evaluate innovative ideas with weighted decision matrices, run real-world case simulations, and practice with 70+ behavioral exam scenarios.
+                    <span class="px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-brand-500/20 text-brand-300 rounded-full border border-brand-500/30">Complete Reference & Executive Assessment</span>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Applied Creativity & Role Leadership Suite</h1>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Complete curriculum containing 31 detailed chapters across Module 1 (Applied Creativity) and Module 2 (Role Leadership), complete with interactive tools, SCAMPER models, PDSA generators, weighted decision matrices, and 70 unique behavioral test bank MCQs.
                     </p>
                     <div class="flex flex-wrap gap-4 pt-2">
-                        <button onclick="switchTab('creativity')" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-lg shadow-brand-600/30 transition-all flex items-center space-x-2">
-                            <i class="fa-solid fa-play text-sm"></i><span>Start Module 1</span>
+                        <button onclick="switchTab('creativity')" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs shadow-lg transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-book-open"></i><span>Read Module 1 (15 Chapters)</span>
                         </button>
-                        <button onclick="switchTab('exam')" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold border border-slate-700 transition-all flex items-center space-x-2">
-                            <i class="fa-solid fa-vial text-purple-400"></i><span>Take Full Exam</span>
+                        <button onclick="switchTab('leadership')" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-lg transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-users"></i><span>Read Module 2 (16 Chapters)</span>
+                        </button>
+                        <button onclick="switchTab('exam')" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs shadow-lg transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-graduation-cap"></i><span>Take 70-MCQ Exam Bank</span>
                         </button>
                     </div>
                 </div>
                 <i class="fa-solid fa-brain absolute -right-10 -bottom-10 text-[220px] text-brand-500/10 pointer-events-none"></i>
             </div>
 
-            <!-- Dashboard Grid Stats -->
+            <!-- Dashboard Stats Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="glass-card p-5 rounded-xl flex items-center justify-between">
                     <div>
-                        <p class="text-xs text-slate-400 uppercase font-semibold">Module 1 Progress</p>
-                        <h3 class="text-2xl font-bold text-amber-400 mt-1" id="dash-m1-status">0 / 15</h3>
-                        <p class="text-xs text-slate-500 mt-1">Chapters Completed</p>
+                        <p class="text-xs text-slate-400 uppercase font-semibold">Module 1 Content</p>
+                        <h3 class="text-2xl font-bold text-amber-400 mt-1">15 Chapters</h3>
+                        <p class="text-xs text-slate-500 mt-1">10 MCQs + 8 SAQs</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20 text-amber-400 text-xl">
                         <i class="fa-solid fa-lightbulb"></i>
@@ -193,9 +176,9 @@
 
                 <div class="glass-card p-5 rounded-xl flex items-center justify-between">
                     <div>
-                        <p class="text-xs text-slate-400 uppercase font-semibold">Module 2 Progress</p>
-                        <h3 class="text-2xl font-bold text-emerald-400 mt-1" id="dash-m2-status">0 / 16</h3>
-                        <p class="text-xs text-slate-500 mt-1">Chapters Completed</p>
+                        <p class="text-xs text-slate-400 uppercase font-semibold">Module 2 Content</p>
+                        <h3 class="text-2xl font-bold text-emerald-400 mt-1">16 Chapters</h3>
+                        <p class="text-xs text-slate-500 mt-1">10 MCQs + 10 SAQs</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 text-emerald-400 text-xl">
                         <i class="fa-solid fa-users-gear"></i>
@@ -204,84 +187,24 @@
 
                 <div class="glass-card p-5 rounded-xl flex items-center justify-between">
                     <div>
-                        <p class="text-xs text-slate-400 uppercase font-semibold">Exam Readiness</p>
-                        <h3 class="text-2xl font-bold text-purple-400 mt-1" id="dash-exam-score">0%</h3>
-                        <p class="text-xs text-slate-500 mt-1">Best Test Bank Score</p>
+                        <p class="text-xs text-slate-400 uppercase font-semibold">Test Bank</p>
+                        <h3 class="text-2xl font-bold text-purple-400 mt-1">70 Unique MCQs</h3>
+                        <p class="text-xs text-slate-500 mt-1">Zero Question Repetition</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20 text-purple-400 text-xl">
-                        <i class="fa-solid fa-award"></i>
+                        <i class="fa-solid fa-list-check"></i>
                     </div>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl flex items-center justify-between">
                     <div>
-                        <p class="text-xs text-slate-400 uppercase font-semibold">Competency Pillars</p>
-                        <h3 class="text-2xl font-bold text-cyan-400 mt-1">3 Pillars</h3>
-                        <p class="text-xs text-slate-500 mt-1">Work, Human, Result</p>
+                        <p class="text-xs text-slate-400 uppercase font-semibold">Interactive Tools</p>
+                        <h3 class="text-2xl font-bold text-cyan-400 mt-1">3 Executive Tools</h3>
+                        <p class="text-xs text-slate-500 mt-1">Scoring, PDSA & PDP</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20 text-cyan-400 text-xl">
-                        <i class="fa-solid fa-layer-group"></i>
+                        <i class="fa-solid fa-sliders"></i>
                     </div>
-                </div>
-            </div>
-
-            <!-- Competency Pillars Card Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Pillar 1 -->
-                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-blue-500">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
-                            <i class="fa-solid fa-briefcase text-lg"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-slate-100">Work Execution Pillar</h3>
-                            <p class="text-xs text-slate-400">Strategic & Operational Excellence</p>
-                        </div>
-                    </div>
-                    <ul class="space-y-2 text-sm text-slate-300">
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-400 text-xs"></i><span>Strategic Thinking & Innovation</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-400 text-xs"></i><span>Market Building & Public Stewardship</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-400 text-xs"></i><span>SCAMPER & Problem Solving</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-blue-400 text-xs"></i><span>Value-Adding Work Focus</span></li>
-                    </ul>
-                </div>
-
-                <!-- Pillar 2 -->
-                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-emerald-500">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400">
-                            <i class="fa-solid fa-handshake text-lg"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-slate-100">Human Relations Pillar</h3>
-                            <p class="text-xs text-slate-400">Leadership & Synergy</p>
-                        </div>
-                    </div>
-                    <ul class="space-y-2 text-sm text-slate-300">
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i><span>Role-Modeling Leadership</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i><span>Emotional Intelligence & Ethics</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i><span>Conflict Resolution & Negotiation</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i><span>Diversity, Inclusion & Empowerment</span></li>
-                    </ul>
-                </div>
-
-                <!-- Pillar 3 -->
-                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-purple-500">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
-                            <i class="fa-solid fa-chart-line text-lg"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-slate-100">Result Orientation Pillar</h3>
-                            <p class="text-xs text-slate-400">Performance & Accountability</p>
-                        </div>
-                    </div>
-                    <ul class="space-y-2 text-sm text-slate-300">
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-purple-400 text-xs"></i><span>KPI Metrics & Scorecard Calibration</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-purple-400 text-xs"></i><span>Delegation & Responsibility Grid</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-purple-400 text-xs"></i><span>PDSA Quality Cycles</span></li>
-                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-purple-400 text-xs"></i><span>Time & Resource Optimization</span></li>
-                    </ul>
                 </div>
             </div>
         </section>
@@ -295,15 +218,14 @@
                     <h2 class="text-2xl font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-lightbulb text-amber-400"></i> Module 1: Applied Creativity & Innovation
                     </h2>
-                    <p class="text-sm text-slate-400">Explore all 15 detailed chapters covering frameworks, tools, KPIs, and case studies.</p>
+                    <p class="text-xs text-slate-400">All 15 chapters formatted in full detailing frameworks, SCAMPER, 5-Whys, PDSA, KPIs, Case Studies, MCQs & Short Answer Questions.</p>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 no-print">
                     <button onclick="toggleAllChapters('m1', true)" class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">Expand All</button>
                     <button onclick="toggleAllChapters('m1', false)" class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">Collapse All</button>
                 </div>
             </div>
 
-            <!-- M1 Accordion Container -->
             <div id="m1-chapters-container" class="space-y-4"></div>
         </section>
 
@@ -316,282 +238,242 @@
                     <h2 class="text-2xl font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-users-gear text-emerald-400"></i> Module 2: Role Leadership & Governance
                     </h2>
-                    <p class="text-sm text-slate-400">Explore all 16 detailed chapters covering authority, delegation, leadership styles, and accountability.</p>
+                    <p class="text-xs text-slate-400">All 16 chapters formatted in full covering governance, 5 leadership styles, ARA triad, 5-step delegation, conflict modes, hospital directorate case study, MCQs & Short Answer Questions.</p>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 no-print">
                     <button onclick="toggleAllChapters('m2', true)" class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">Expand All</button>
                     <button onclick="toggleAllChapters('m2', false)" class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">Collapse All</button>
                 </div>
             </div>
 
-            <!-- M2 Accordion Container -->
             <div id="m2-chapters-container" class="space-y-4"></div>
         </section>
 
         <!-- ========================================== -->
-        <!-- TAB 4: INTERACTIVE TOOLS & CALCULATORS -->
+        <!-- TAB 4: COMPREHENSIVE BEHAVIORAL TEST BANK (70 MCQS) -->
+        <!-- ========================================== -->
+        <section id="tab-exam" class="tab-content hidden space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-purple-400"></i> Competency Behavioral Test Bank (70 Unique MCQs)
+                    </h2>
+                    <p class="text-xs text-slate-400">70 non-repeating behavioral and situational multiple choice questions extracted across all competency pillars.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 no-print">
+                    <button onclick="toggleAnswerKeys()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg border border-slate-700">
+                        <i class="fa-solid fa-eye mr-1"></i><span id="toggle-ans-text">Show Answer Key</span>
+                    </button>
+                    <button onclick="submitExam()" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold text-xs rounded-lg shadow-lg flex items-center space-x-2">
+                        <i class="fa-solid fa-check-circle"></i><span>Submit & Grade Exam</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="exam-score-dashboard" class="hidden glass-card p-6 rounded-2xl border-l-4 border-l-purple-500 space-y-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Test Bank Grade Summary</h3>
+                        <p class="text-xs text-slate-400">Evaluated across Work Execution, Human Relations, and Result Orientation pillars</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-4xl font-extrabold text-purple-400" id="final-exam-percentage">0%</span>
+                        <div class="text-xs text-slate-400" id="final-exam-counts">0 / 70 Correct</div>
+                    </div>
+                </div>
+                <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
+                    <div id="final-exam-bar" class="bg-gradient-to-r from-purple-500 to-emerald-400 h-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <div id="final-exam-verdict" class="text-xs text-slate-300 bg-slate-950/80 p-3 rounded-lg border border-slate-800"></div>
+            </div>
+
+            <div id="exam-questions-container" class="space-y-4"></div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 5: INTERACTIVE EXECUTIVE WORK TOOLS -->
         <!-- ========================================== -->
         <section id="tab-tools" class="tab-content hidden space-y-8">
             <div class="border-b border-slate-800 pb-4">
                 <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-cyan-400"></i> Interactive Executive Tools
+                    <i class="fa-solid fa-sliders text-cyan-400"></i> Interactive Executive Work Tools
                 </h2>
-                <p class="text-sm text-slate-400">Practical calculators, simulators, and personal development plan generators.</p>
+                <p class="text-xs text-slate-400">Weighted decision matrix calculator, PDSA cycle plan generator, and personal development plan builder.</p>
             </div>
 
-            <!-- Tool Selector Nav Tabs -->
             <div class="flex border-b border-slate-800 space-x-4">
-                <button onclick="switchSubTool('scoring')" id="subtool-tab-scoring" class="subtool-btn pb-3 px-2 border-b-2 font-medium text-sm text-brand-400 border-brand-500">
-                    Weighted Idea-Scoring Matrix
+                <button onclick="switchSubTool('scoring')" id="subtool-tab-scoring" class="subtool-btn pb-3 px-2 border-b-2 font-medium text-xs text-brand-400 border-brand-500">
+                    1. Weighted Idea-Scoring Matrix
                 </button>
-                <button onclick="switchSubTool('case-sim')" id="subtool-tab-case-sim" class="subtool-btn pb-3 px-2 border-b-2 font-medium text-sm text-slate-400 border-transparent hover:text-slate-200">
-                    Case Study Simulators
+                <button onclick="switchSubTool('pdsa')" id="subtool-tab-pdsa" class="subtool-btn pb-3 px-2 border-b-2 font-medium text-xs text-slate-400 border-transparent hover:text-slate-200">
+                    2. Interactive PDSA Generator
                 </button>
-                <button onclick="switchSubTool('pdp')" id="subtool-tab-pdp" class="subtool-btn pb-3 px-2 border-b-2 font-medium text-sm text-slate-400 border-transparent hover:text-slate-200">
-                    Competency PDP Builder
+                <button onclick="switchSubTool('pdp')" id="subtool-tab-pdp" class="subtool-btn pb-3 px-2 border-b-2 font-medium text-xs text-slate-400 border-transparent hover:text-slate-200">
+                    3. Personal Leadership PDP Builder
                 </button>
             </div>
 
-            <!-- TOOL 1: WEIGHTED IDEA SCORING CALCULATOR -->
+            <!-- TOOL 1: SCORING CALCULATOR -->
             <div id="subtool-scoring" class="subtool-content space-y-6">
                 <div class="glass-card p-6 rounded-2xl space-y-6">
                     <div class="flex justify-between items-start">
                         <div>
                             <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid fa-calculator text-brand-400"></i> Weighted Idea-Scoring Calculator (Module 1)
+                                <i class="fa-solid fa-calculator text-brand-400"></i> Weighted Idea-Scoring Matrix
                             </h3>
-                            <p class="text-sm text-slate-400 mt-1">Rate your innovative project idea across 7 key criteria to calculate its total Weighted Score out of 100.</p>
+                            <p class="text-xs text-slate-400 mt-1">Rate your innovative project idea across 7 weighted parameters (Total Weight = 100%).</p>
                         </div>
-                        <button onclick="resetScoringCalculator()" class="px-3 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">
-                            Reset Form
-                        </button>
+                        <button onclick="resetScoringCalculator()" class="px-3 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">Reset</button>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <!-- Inputs Grid -->
                         <div class="lg:col-span-2 space-y-4">
-                            <!-- Criterion 1 -->
                             <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
                                 <div class="flex justify-between items-center mb-2">
-                                    <label class="text-sm font-semibold text-slate-200">1. Expected Strategic Benefit <span class="text-brand-400 font-normal">(Weight: 25%)</span></label>
-                                    <span class="text-sm font-bold text-brand-400" id="val-c1">3 / 5</span>
+                                    <label class="text-xs font-semibold text-slate-200">1. Strategic Alignment & Value (Weight: 25%)</label>
+                                    <span class="text-xs font-bold text-brand-400" id="val-c1">3 / 5</span>
                                 </div>
                                 <input type="range" min="1" max="5" step="1" value="3" class="w-full accent-brand-500 bg-slate-700 h-2 rounded-lg cursor-pointer" id="score-c1" oninput="updateIdeaScore()">
-                                <div class="flex justify-between text-[10px] text-slate-500 mt-1"><span>1: Marginal Improvement</span><span>3: Moderate ROI</span><span>5: Game-Changing Transformation</span></div>
                             </div>
 
-                            <!-- Criterion 2 -->
                             <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
                                 <div class="flex justify-between items-center mb-2">
-                                    <label class="text-sm font-semibold text-slate-200">2. Implementation Feasibility <span class="text-brand-400 font-normal">(Weight: 20%)</span></label>
-                                    <span class="text-sm font-bold text-brand-400" id="val-c2">3 / 5</span>
+                                    <label class="text-xs font-semibold text-slate-200">2. Technical & Operational Feasibility (Weight: 20%)</label>
+                                    <span class="text-xs font-bold text-brand-400" id="val-c2">3 / 5</span>
                                 </div>
                                 <input type="range" min="1" max="5" step="1" value="3" class="w-full accent-brand-500 bg-slate-700 h-2 rounded-lg cursor-pointer" id="score-c2" oninput="updateIdeaScore()">
-                                <div class="flex justify-between text-[10px] text-slate-500 mt-1"><span>1: Highly Complex / High Risk</span><span>3: Standard Operational Risk</span><span>5: Turnkey Execution</span></div>
                             </div>
 
-                            <!-- Criterion 3 -->
                             <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
                                 <div class="flex justify-between items-center mb-2">
-                                    <label class="text-sm font-semibold text-slate-200">3. Resource Affordability <span class="text-brand-400 font-normal">(Weight: 15%)</span></label>
-                                    <span class="text-sm font-bold text-brand-400" id="val-c3">3 / 5</span>
+                                    <label class="text-xs font-semibold text-slate-200">3. Resource & Financial Affordability (Weight: 15%)</label>
+                                    <span class="text-xs font-bold text-brand-400" id="val-c3">3 / 5</span>
                                 </div>
                                 <input type="range" min="1" max="5" step="1" value="3" class="w-full accent-brand-500 bg-slate-700 h-2 rounded-lg cursor-pointer" id="score-c3" oninput="updateIdeaScore()">
-                                <div class="flex justify-between text-[10px] text-slate-500 mt-1"><span>1: Requires Huge Capital</span><span>3: Within Approved Budget</span><span>5: Low/Zero Cost</span></div>
                             </div>
 
-                            <!-- Criterion 4 -->
                             <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
                                 <div class="flex justify-between items-center mb-2">
-                                    <label class="text-sm font-semibold text-slate-200">4. Time Efficiency to Deploy <span class="text-brand-400 font-normal">(Weight: 15%)</span></label>
-                                    <span class="text-sm font-bold text-brand-400" id="val-c4">3 / 5</span>
+                                    <label class="text-xs font-semibold text-slate-200">4. Deployment Speed & Timeliness (Weight: 15%)</label>
+                                    <span class="text-xs font-bold text-brand-400" id="val-c4">3 / 5</span>
                                 </div>
                                 <input type="range" min="1" max="5" step="1" value="3" class="w-full accent-brand-500 bg-slate-700 h-2 rounded-lg cursor-pointer" id="score-c4" oninput="updateIdeaScore()">
-                                <div class="flex justify-between text-[10px] text-slate-500 mt-1"><span>1: > 12 Months</span><span>3: 3 - 6 Months</span><span>5: Quick Win (&lt; 1 Month)</span></div>
                             </div>
 
-                            <!-- Criterion 5 -->
                             <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
                                 <div class="flex justify-between items-center mb-2">
-                                    <label class="text-sm font-semibold text-slate-200">5. Sustainability & Scalability <span class="text-brand-400 font-normal">(Weight: 10%)</span></label>
-                                    <span class="text-sm font-bold text-brand-400" id="val-c5">3 / 5</span>
+                                    <label class="text-xs font-semibold text-slate-200">5. Sustainability & Scalability (Weight: 10%)</label>
+                                    <span class="text-xs font-bold text-brand-400" id="val-c5">3 / 5</span>
                                 </div>
                                 <input type="range" min="1" max="5" step="1" value="3" class="w-full accent-brand-500 bg-slate-700 h-2 rounded-lg cursor-pointer" id="score-c5" oninput="updateIdeaScore()">
-                                <div class="flex justify-between text-[10px] text-slate-500 mt-1"><span>1: One-off Fix</span><span>3: Moderate Scaling Potential</span><span>5: High Long-Term Impact</span></div>
                             </div>
 
-                            <!-- Criterion 6 -->
                             <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
                                 <div class="flex justify-between items-center mb-2">
-                                    <label class="text-sm font-semibold text-slate-200">6. Stakeholder Acceptance <span class="text-brand-400 font-normal">(Weight: 10%)</span></label>
-                                    <span class="text-sm font-bold text-brand-400" id="val-c6">3 / 5</span>
+                                    <label class="text-xs font-semibold text-slate-200">6. Stakeholder Buy-in & Acceptance (Weight: 10%)</label>
+                                    <span class="text-xs font-bold text-brand-400" id="val-c6">3 / 5</span>
                                 </div>
                                 <input type="range" min="1" max="5" step="1" value="3" class="w-full accent-brand-500 bg-slate-700 h-2 rounded-lg cursor-pointer" id="score-c6" oninput="updateIdeaScore()">
-                                <div class="flex justify-between text-[10px] text-slate-500 mt-1"><span>1: Severe Resistance Expected</span><span>3: Neutral / Requires Buy-in</span><span>5: Enthusiastic Buy-in</span></div>
                             </div>
 
-                            <!-- Criterion 7 -->
                             <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
                                 <div class="flex justify-between items-center mb-2">
-                                    <label class="text-sm font-semibold text-slate-200">7. Ease of Metric Measurement <span class="text-brand-400 font-normal">(Weight: 5%)</span></label>
-                                    <span class="text-sm font-bold text-brand-400" id="val-c7">3 / 5</span>
+                                    <label class="text-xs font-semibold text-slate-200">7. Ease of Measurement & Control (Weight: 5%)</label>
+                                    <span class="text-xs font-bold text-brand-400" id="val-c7">3 / 5</span>
                                 </div>
                                 <input type="range" min="1" max="5" step="1" value="3" class="w-full accent-brand-500 bg-slate-700 h-2 rounded-lg cursor-pointer" id="score-c7" oninput="updateIdeaScore()">
-                                <div class="flex justify-between text-[10px] text-slate-500 mt-1"><span>1: Vague / Subjective</span><span>3: Direct Quantitative Metrics</span><span>5: Real-time Automated Dashboard</span></div>
                             </div>
                         </div>
 
-                        <!-- Result & Recommendation Panel -->
                         <div class="flex flex-col justify-between bg-slate-900 p-6 rounded-2xl border border-slate-800 text-center">
                             <div>
-                                <h4 class="text-sm uppercase font-semibold text-slate-400">Calculated Weighted Score</h4>
+                                <h4 class="text-xs uppercase font-semibold text-slate-400">Total Weighted Score</h4>
                                 <div class="my-6">
-                                    <span class="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-indigo-300 to-emerald-400" id="final-idea-score">60.0</span>
-                                    <span class="text-xl text-slate-500"> / 100</span>
+                                    <span class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-400" id="final-idea-score">60.0</span>
+                                    <span class="text-lg text-slate-500"> / 100</span>
                                 </div>
-
-                                <div id="idea-verdict-badge" class="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                                    Moderate Viability - Refinement Recommended
-                                </div>
-
-                                <div class="mt-6 text-left space-y-3 bg-slate-950/60 p-4 rounded-xl border border-slate-800/80 text-xs text-slate-300">
-                                    <div class="font-semibold text-slate-200 border-b border-slate-800 pb-1">Decision Matrix Thresholds:</div>
-                                    <p><strong class="text-emerald-400">80 - 100:</strong> Priority 1 Innovation. Fast-track for implementation & resource allocation.</p>
-                                    <p><strong class="text-amber-400">60 - 79:</strong> Priority 2 Innovation. Needs SCAMPER refinement or pilot testing.</p>
-                                    <p><strong class="text-rose-400">Below 60:</strong> High Risk / Low Yield. Reject or completely re-evaluate objectives.</p>
+                                <div id="idea-verdict-badge" class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                    Moderate Priority
                                 </div>
                             </div>
-
-                            <button onclick="saveIdeaResult()" class="mt-6 w-full py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-lg transition-all text-sm flex items-center justify-center space-x-2">
-                                <i class="fa-solid fa-bookmark"></i><span>Save Evaluation Result</span>
-                            </button>
+                            <button onclick="window.print()" class="mt-6 w-full py-2 bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 rounded-xl border border-slate-700">Print Matrix Report</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- TOOL 2: CASE STUDY SIMULATORS -->
-            <div id="subtool-case-sim" class="subtool-content hidden space-y-6">
-                <!-- Case Study 1: Creativity -->
+            <!-- TOOL 2: PDSA CYCLE GENERATOR -->
+            <div id="subtool-pdsa" class="subtool-content hidden space-y-6">
                 <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <div class="flex items-center space-x-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
-                        <i class="fa-solid fa-lightbulb"></i><span>Module 1 Simulation</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white">Case Scenario A: Operational Bottlenecks in Public Permitting</h3>
-                    <p class="text-sm text-slate-300 leading-relaxed">
-                        A government agency faces a 4-week backlog in processing commercial building permits. Citizens and business owners are complaining about delays and lack of transparency. Traditional extra work hours have failed to resolve the backlog.
-                    </p>
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-arrows-rotate text-emerald-400"></i> Interactive PDSA Cycle Continuous Improvement Generator
+                    </h3>
+                    <p class="text-xs text-slate-400">Draft your Plan-Do-Study-Act operational cycle and print/export your roadmap.</p>
                     
-                    <div class="space-y-3 pt-2">
-                        <label class="block text-sm font-medium text-slate-200">Select the Most Creative & Effective Innovation Framework:</label>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            <button onclick="evalCaseSim('m1', 'A')" class="p-3 text-left rounded-xl bg-slate-900 border border-slate-800 hover:border-brand-500 transition-all text-xs text-slate-300">
-                                <strong>Option A:</strong> Apply SCAMPER to eliminate paper verification steps and substitute standard reviews with automated digital check-lists.
-                            </button>
-                            <button onclick="evalCaseSim('m1', 'B')" class="p-3 text-left rounded-xl bg-slate-900 border border-slate-800 hover:border-brand-500 transition-all text-xs text-slate-300">
-                                <strong>Option B:</strong> Mandate compulsory 2-hour daily overtime for all permit review staff.
-                            </button>
-                            <button onclick="evalCaseSim('m1', 'C')" class="p-3 text-left rounded-xl bg-slate-900 border border-slate-800 hover:border-brand-500 transition-all text-xs text-slate-300">
-                                <strong>Option C:</strong> Hire 10 temporary contractors without changing the existing 12-step manual approval workflow.
-                            </button>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+                            <label class="font-bold text-blue-400 block">1. PLAN (Define Objectives & Metrics)</label>
+                            <textarea id="pdsa-plan" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200 focus:outline-none focus:border-brand-500" rows="3" placeholder="State operational goal, hypothesis, and targeted KPIs..."></textarea>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+                            <label class="font-bold text-emerald-400 block">2. DO (Execute Small-Scale Pilot)</label>
+                            <textarea id="pdsa-do" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200 focus:outline-none focus:border-brand-500" rows="3" placeholder="Outline pilot steps, assigned team members, and timeline..."></textarea>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+                            <label class="font-bold text-amber-400 block">3. STUDY (Analyze & Compare Results)</label>
+                            <textarea id="pdsa-study" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200 focus:outline-none focus:border-brand-500" rows="3" placeholder="Compare pilot outcome metrics against benchmark expectations..."></textarea>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+                            <label class="font-bold text-purple-400 block">4. ACT (Standardize or Adjust)</label>
+                            <textarea id="pdsa-act" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200 focus:outline-none focus:border-brand-500" rows="3" placeholder="Decide to adopt organizational-wide, adapt parameters, or abandon..."></textarea>
                         </div>
                     </div>
-
-                    <div id="case-feedback-m1" class="hidden p-4 rounded-xl border text-xs leading-relaxed"></div>
-                </div>
-
-                <!-- Case Study 2: Leadership -->
-                <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <div class="flex items-center space-x-2 text-emerald-400 text-xs font-bold uppercase tracking-wider">
-                        <i class="fa-solid fa-users-gear"></i><span>Module 2 Simulation</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white">Case Scenario B: Conflict & Accountability in Cross-Functional Teams</h3>
-                    <p class="text-sm text-slate-300 leading-relaxed">
-                        During an IT system upgrade, the operations head and IT director get into an escalating argument over project delays. Operations accuses IT of failing to deliver features, while IT claims operations keeps changing requirements without authority.
-                    </p>
-
-                    <div class="space-y-3 pt-2">
-                        <label class="block text-sm font-medium text-slate-200">Select the Optimal Role Leadership Intervention:</label>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            <button onclick="evalCaseSim('m2', 'A')" class="p-3 text-left rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500 transition-all text-xs text-slate-300">
-                                <strong>Option A:</strong> Take over all project decisions yourself as leader and bypass both managers to avoid further delay.
-                            </button>
-                            <button onclick="evalCaseSim('m2', 'B')" class="p-3 text-left rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500 transition-all text-xs text-slate-300">
-                                <strong>Option B:</strong> Convene a structured alignment session using an explicit Authority-Responsibility-Accountability (ARA) matrix and formal delegation principles.
-                            </button>
-                            <button onclick="evalCaseSim('m2', 'C')" class="p-3 text-left rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500 transition-all text-xs text-slate-300">
-                                <strong>Option C:</strong> Instruct both managers to work it out among themselves privately without intervening.
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="case-feedback-m2" class="hidden p-4 rounded-xl border text-xs leading-relaxed"></div>
+                    <button onclick="window.print()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs rounded-xl shadow-md">Export / Print PDSA Roadmap</button>
                 </div>
             </div>
 
-            <!-- TOOL 3: COMPETENCY PDP BUILDER -->
+            <!-- TOOL 3: PERSONAL PDP BUILDER -->
             <div id="subtool-pdp" class="subtool-content hidden space-y-6">
                 <div class="glass-card p-6 rounded-2xl space-y-6">
                     <div class="flex justify-between items-center">
-                        <div>
-                            <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid fa-id-card text-emerald-400"></i> Interactive Personal Competency Development Plan Builder
-                            </h3>
-                            <p class="text-sm text-slate-400 mt-1">Identify competency gaps, draft target actions, set review dates, and export your personal plan.</p>
-                        </div>
-                        <button onclick="printPDP()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs shadow-md transition-all flex items-center space-x-2">
-                            <i class="fa-solid fa-print"></i><span>Export / Print Plan</span>
-                        </button>
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-id-card text-purple-400"></i> Personal Competency Development Plan Builder
+                        </h3>
+                        <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs">Print PDP Plan</button>
                     </div>
 
-                    <!-- PDP Input Form -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-300 mb-1">User Full Name</label>
-                            <input type="text" id="pdp-name" value="Executive Learner" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-brand-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-300 mb-1">Current Organizational Role</label>
-                            <input type="text" id="pdp-role" value="Department Manager / Senior Leader" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-brand-500">
-                        </div>
-                    </div>
-
-                    <!-- PDP Table -->
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs border-collapse">
                             <thead>
                                 <tr class="bg-slate-900 text-slate-300 border-b border-slate-800">
                                     <th class="p-3">Competency Area</th>
                                     <th class="p-3">Identified Skill Gap</th>
-                                    <th class="p-3">Planned Activity / Intervention</th>
-                                    <th class="p-3">Target Date</th>
-                                    <th class="p-3">Evidence of Success</th>
+                                    <th class="p-3">Action Plan / Learning Activity</th>
+                                    <th class="p-3">Target Completion</th>
+                                    <th class="p-3">Success Criteria</th>
                                 </tr>
                             </thead>
-                            <tbody id="pdp-rows" class="divide-y divide-slate-800/60 text-slate-300">
-                                <!-- Row 1 -->
+                            <tbody class="divide-y divide-slate-800 text-slate-300">
                                 <tr>
-                                    <td class="p-3 font-semibold text-amber-400">Strategic & Creative Thinking</td>
-                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="Limited structured innovation tools"></td>
-                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="Apply SCAMPER & 5-Whys on quarterly process reviews"></td>
-                                    <td class="p-3"><input type="date" class="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="2026-12-15"></td>
-                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="Weighted Scorecard > 80 on project proposal"></td>
+                                    <td class="p-3 font-semibold text-amber-400">1. Creative Problem Solving</td>
+                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1" value="Over-reliance on traditional processes"></td>
+                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1" value="Apply SCAMPER & 5-Whys in team meetings"></td>
+                                    <td class="p-3"><input type="date" class="bg-slate-950 border border-slate-800 rounded px-2 py-1" value="2026-11-30"></td>
+                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1" value="2 ideas implemented with >15% time savings"></td>
                                 </tr>
-                                <!-- Row 2 -->
                                 <tr>
-                                    <td class="p-3 font-semibold text-emerald-400">Role-Modeling Leadership</td>
-                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="Micromanagement under tight deadlines"></td>
-                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="Implement 5-Step Delegation Model with authority clear"></td>
-                                    <td class="p-3"><input type="date" class="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="2026-11-30"></td>
-                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="360 feedback improvement & team autonomy"></td>
+                                    <td class="p-3 font-semibold text-emerald-400">2. Delegation Governance</td>
+                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1" value="Tendency to micromanage high-risk tasks"></td>
+                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1" value="Implement 5-Step Delegation Model with clear ARA"></td>
+                                    <td class="p-3"><input type="date" class="bg-slate-950 border border-slate-800 rounded px-2 py-1" value="2026-12-15"></td>
+                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1" value="100% on-time completion by delegated staff"></td>
                                 </tr>
-                                <!-- Row 3 -->
                                 <tr>
-                                    <td class="p-3 font-semibold text-purple-400">Conflict Management</td>
-                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="Hesitation in addressing low performers"></td>
-                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="Conduct bi-weekly structured feedback sessions"></td>
-                                    <td class="p-3"><input type="date" class="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="2026-12-30"></td>
-                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs" value="KPI resolution within 30 days"></td>
+                                    <td class="p-3 font-semibold text-cyan-400">3. Conflict Management</td>
+                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1" value="Delaying difficult performance conversations"></td>
+                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1" value="Utilize Thomas-Kilmann Collaborating mode"></td>
+                                    <td class="p-3"><input type="date" class="bg-slate-950 border border-slate-800 rounded px-2 py-1" value="2026-12-30"></td>
+                                    <td class="p-3"><input type="text" class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1" value="Resolution of team friction within 14 days"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -599,90 +481,51 @@
                 </div>
             </div>
         </section>
-
-        <!-- ========================================== -->
-        <!-- TAB 5: COMPREHENSIVE TEST BANK (70+ MCQs) -->
-        <!-- ========================================== -->
-        <section id="tab-exam" class="tab-content hidden space-y-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-                <div>
-                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-graduation-cap text-purple-400"></i> Comprehensive Behavioral Test Bank
-                    </h2>
-                    <p class="text-sm text-slate-400">70+ Competency-Based MCQs categorized by Executive Pillars with instant scoring & explanations.</p>
-                </div>
-                <!-- Filter Controls -->
-                <div class="flex flex-wrap items-center gap-2">
-                    <select id="exam-pillar-filter" onchange="renderExamQuestions()" class="bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-brand-500">
-                        <option value="ALL">All Competency Categories (70+)</option>
-                        <option value="Work Execution">Work Execution Pillar</option>
-                        <option value="Human Relations">Human Relations Pillar</option>
-                        <option value="Result Orientation">Result Orientation Pillar</option>
-                    </select>
-                    <button onclick="submitExam()" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-xs rounded-lg shadow-lg transition-all flex items-center space-x-2">
-                        <i class="fa-solid fa-check-circle"></i><span>Submit & Grade Exam</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Score Summary Dashboard (Hidden until submitted) -->
-            <div id="exam-score-dashboard" class="hidden glass-card p-6 rounded-2xl border-l-4 border-l-emerald-500 space-y-4">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold text-white">Exam Results & Feedback</h3>
-                        <p class="text-xs text-slate-400">Based on standard evaluation scorecards</p>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-3xl font-extrabold text-emerald-400" id="final-exam-percentage">0%</span>
-                        <div class="text-[10px] text-slate-400" id="final-exam-counts">0 / 0 Correct</div>
-                    </div>
-                </div>
-                <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
-                    <div id="final-exam-bar" class="bg-gradient-to-r from-brand-500 to-emerald-400 h-full transition-all duration-500" style="width: 0%"></div>
-                </div>
-                <div id="final-exam-verdict" class="text-xs text-slate-300 bg-slate-950/80 p-3 rounded-lg border border-slate-800"></div>
-            </div>
-
-            <!-- Questions Container -->
-            <div id="exam-questions-container" class="space-y-4"></div>
-        </section>
-
     </main>
 
     <!-- FOOTER -->
     <footer class="mt-auto border-t border-slate-800/80 py-6 text-center text-xs text-slate-500 no-print">
         <div class="max-w-7xl mx-auto px-4">
-            <p>© 2026 Interactive Competency Learning & Assessment System. All rights reserved.</p>
-            <p class="mt-1 text-[11px] text-slate-600">Built for Executive Development, SCAMPER Innovation Frameworks, and Leadership Role Mastery.</p>
+            <p>© 2026 Executive Competency Learning & Behavioral Assessment Suite. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- SCRIPT APPLICATION LOGIC & DATA -->
+    <!-- SCRIPT DATA & APP LOGIC -->
     <script>
         /* ==========================================================================
-           CURRICULUM DATA: MODULE 1 CREATIVITY (15 CHAPTERS)
+           FULL DETAILED DATA: MODULE 1 CREATIVITY (15 CHAPTERS + MCQS & SAQS)
            ========================================================================== */
-        const module1Data = [
+        const module1FullData = [
             {
                 id: "m1-c1",
                 title: "Chapter 1: Definition & Operational Meaning of Creativity",
                 content: `
-                    <p class="mb-3"><strong>Creativity</strong> in an organizational context is defined as the mental and social process involving the generation of new, original, and valuable ideas, concepts, or solutions to existing or emerging problems.</p>
-                    <div class="p-4 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-200 mb-3 text-xs leading-relaxed">
-                        <i class="fa-solid fa-quote-left mr-2"></i>Creativity is not merely artistic talent; it is an operational executive capability to reimagine work processes, service delivery, and public value generation.
+                    <h4 class="text-sm font-bold text-amber-400 mb-2">1.1 Core Conceptual Framework</h4>
+                    <p class="mb-3"><strong>Creativity</strong> in an executive context is defined as the mental, cognitive, and social capability to generate novel, original, and useful ideas, methods, or solutions that resolve operational bottlenecks and generate public or stakeholder value.</p>
+                    <p class="mb-3">Unlike artistic creativity, <em>applied organizational creativity</em> focuses directly on efficiency, service enhancement, cost optimization, and strategic differentiation.</p>
+                    <h4 class="text-sm font-bold text-amber-400 mb-2">1.2 Operational Distinction</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 my-3">
+                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
+                            <strong class="text-slate-200">Creativity (Ideation)</strong>
+                            <p class="text-slate-400 text-xs mt-1">The cognitive process of conceiving novel concepts and non-obvious operational connections.</p>
+                        </div>
+                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
+                            <strong class="text-slate-200">Innovation (Execution)</strong>
+                            <p class="text-slate-400 text-xs mt-1">The practical implementation of creative ideas into standardized institutional workflows.</p>
+                        </div>
                     </div>
-                    <p class="text-xs text-slate-300">It bridges the gap between traditional routine operations and innovative breakthroughs by challenging status-quo assumptions.</p>
                 `
             },
             {
                 id: "m1-c2",
                 title: "Chapter 2: Key Objectives of Module Creativity",
                 content: `
-                    <ul class="list-disc pl-5 space-y-2 text-xs text-slate-300">
-                        <li><strong>Enhance Problem-Solving Speed:</strong> Transition from reactive troubleshooting to proactive root-cause elimination.</li>
-                        <li><strong>Systematize Innovation:</strong> Equip leaders with structured frameworks (SCAMPER, 5 Whys, Mind Mapping) rather than relying on random inspiration.</li>
-                        <li><strong>Optimize Resource Allocation:</strong> Utilize weighted scoring matrices to select high-impact, low-risk creative ideas.</li>
-                        <li><strong>Cultivate Growth Culture:</strong> Dismantle psychological and bureaucratic barriers to foster team psychological safety.</li>
+                    <h4 class="text-sm font-bold text-amber-400 mb-2">2.1 Strategic Learning Objectives</h4>
+                    <ul class="list-disc pl-5 space-y-2 text-slate-300">
+                        <li><strong>Systematize Ideation:</strong> Transition from sporadic inspiration to structured methodologies (SCAMPER, 5-Whys, Design Thinking).</li>
+                        <li><strong>Dismantle Cognitive Blocks:</strong> Identify and mitigate perceptual, cultural, emotional, and institutional barriers to innovation.</li>
+                        <li><strong>Empirical Decision Making:</strong> Employ weighted 7-parameter evaluation matrices to prioritize high-value ideas.</li>
+                        <li><strong>Drive Continuous Quality:</strong> Embed Plan-Do-Study-Act (PDSA) quality loops into departmental operations.</li>
                     </ul>
                 `
             },
@@ -690,22 +533,22 @@
                 id: "m1-c3",
                 title: "Chapter 3: The 4 Essential Elements of Organizational Creativity",
                 content: `
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
-                            <span class="font-bold text-amber-400 block mb-1">1. Fluency</span>
-                            The capability to produce a high volume of diverse ideas within a specified period. Quantity breeds quality.
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                            <h5 class="font-bold text-amber-400 text-sm">1. Fluency</h5>
+                            <p class="text-xs text-slate-300 mt-1">The capability to produce a large volume of diverse ideas in response to a specific problem statement. Quantity provides the raw material for quality.</p>
                         </div>
-                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
-                            <span class="font-bold text-amber-400 block mb-1">2. Flexibility</span>
-                            The agility to shift perspectives, break functional silos, and adapt concepts across unrelated domains.
+                        <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                            <h5 class="font-bold text-amber-400 text-sm">2. Flexibility</h5>
+                            <p class="text-xs text-slate-300 mt-1">The cognitive agility to shift paradigms, abandon dead-end strategies, and synthesize concepts across unrelated domains.</p>
                         </div>
-                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
-                            <span class="font-bold text-amber-400 block mb-1">3. Originality</span>
-                            The uniqueness of the solution, moving beyond incremental tweaks to pioneer unconventional methodologies.
+                        <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                            <h5 class="font-bold text-amber-400 text-sm">3. Originality</h5>
+                            <p class="text-xs text-slate-300 mt-1">The statistical rarity and novelty of a solution. Moving beyond routine incremental fixes to pioneer unconventional approaches.</p>
                         </div>
-                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
-                            <span class="font-bold text-amber-400 block mb-1">4. Elaboration</span>
-                            The thoroughness of refining, structuring, and converting abstract concepts into executable operational plans.
+                        <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                            <h5 class="font-bold text-amber-400 text-sm">4. Elaboration</h5>
+                            <p class="text-xs text-slate-300 mt-1">The thoroughness of refining, embellishing, and mapping abstract creative concepts into executable project blueprints.</p>
                         </div>
                     </div>
                 `
@@ -714,12 +557,22 @@
                 id: "m1-c4",
                 title: "Chapter 4: The 5 Major Barriers to Organizational Creativity",
                 content: `
-                    <div class="space-y-2 text-xs text-slate-300">
-                        <div class="p-2.5 rounded bg-rose-500/10 border border-rose-500/20 text-rose-200"><strong>1. Perceptual Blocks:</strong> Inability to see problems beyond established operational norms.</div>
-                        <div class="p-2.5 rounded bg-rose-500/10 border border-rose-500/20 text-rose-200"><strong>2. Cultural Blocks:</strong> Fear of failure, risk aversion, and institutional conformity.</div>
-                        <div class="p-2.5 rounded bg-rose-500/10 border border-rose-500/20 text-rose-200"><strong>3. Environmental Blocks:</strong> Lack of time, inadequate tools, or unsupportive leadership hierarchy.</div>
-                        <div class="p-2.5 rounded bg-rose-500/10 border border-rose-500/20 text-rose-200"><strong>4. Emotional Blocks:</strong> Individual anxiety, fear of ridicule, and reluctance to challenge authority.</div>
-                        <div class="p-2.5 rounded bg-rose-500/10 border border-rose-500/20 text-rose-200"><strong>5. Intellectual Blocks:</strong> Over-reliance on outdated logic or insufficient domain expertise.</div>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg">
+                            <strong class="text-rose-300">1. Perceptual Blocks:</strong> Tunnel vision that prevents leaders from seeing problems from alternative stakeholder perspectives.
+                        </div>
+                        <div class="p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg">
+                            <strong class="text-rose-300">2. Cultural & Fear Blocks:</strong> Organizational risk aversion, punishment of well-intentioned failure, and strict enforcement of conformity.
+                        </div>
+                        <div class="p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg">
+                            <strong class="text-rose-300">3. Environmental Blocks:</strong> Bureaucratic red tape, rigid hierarchies, lack of dedicated time, and inadequate physical/digital toolsets.
+                        </div>
+                        <div class="p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg">
+                            <strong class="text-rose-300">4. Emotional Blocks:</strong> Individual anxiety, fear of peer ridicule, reluctance to challenge senior authority, and low self-efficacy.
+                        </div>
+                        <div class="p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg">
+                            <strong class="text-rose-300">5. Intellectual & Expressive Blocks:</strong> Over-reliance on obsolete formulas, inadequate data, or poor communication of complex ideas.
+                        </div>
                     </div>
                 `
             },
@@ -727,15 +580,15 @@
                 id: "m1-c5",
                 title: "Chapter 5: The SCAMPER Framework for Systematic Innovation",
                 content: `
-                    <p class="text-xs text-slate-300 mb-3">SCAMPER is an acronym-based ideation technique that forces structured questioning:</p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>S - Substitute:</strong> What materials, steps, or people can be swapped?</div>
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>C - Combine:</strong> Can two separate services or processes be merged?</div>
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>A - Adapt:</strong> How can methods from another industry solve this?</div>
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>M - Modify / Magnify:</strong> What features can be expanded or emphasized?</div>
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>P - Put to Another Use:</strong> How can residual data or assets be reused?</div>
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>E - Eliminate:</strong> What redundant approvals or steps can be deleted?</div>
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800 sm:col-span-2"><strong>R - Reverse / Rearrange:</strong> What happens if the workflow order is inverted?</div>
+                    <p class="mb-3">SCAMPER provides structured prompt questions to systematically transform existing products, services, and workflows:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 font-xs">
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>S - Substitute:</strong> Replace materials, components, rules, or steps.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>C - Combine:</strong> Merge separate services, features, or departments.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>A - Adapt:</strong> Borrow models from unrelated sectors or industries.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>M - Modify / Magnify:</strong> Scale up key features, emphasis, or frequency.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>P - Put to Another Use:</strong> Repurpose secondary output or data.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>E - Eliminate:</strong> Remove redundant approvals, steps, or features.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800 md:col-span-2"><strong>R - Reverse / Rearrange:</strong> Invert sequence, roles, or operational flow.</div>
                     </div>
                 `
             },
@@ -743,14 +596,14 @@
                 id: "m1-c6",
                 title: "Chapter 6: Root Cause Analysis - The 5-Whys Technique",
                 content: `
-                    <p class="text-xs text-slate-300 mb-2">Repeatedly asking "Why?" drills past superficial symptoms to uncover true root causes:</p>
-                    <div class="space-y-1.5 text-xs bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono">
-                        <div class="text-slate-400">Problem: System deployment delayed by 3 weeks.</div>
-                        <div class="text-amber-400">1. Why? The user testing phase failed repeatedly.</div>
-                        <div class="text-amber-400">2. Why? Software contained unexpected API integration errors.</div>
-                        <div class="text-amber-400">3. Why? Developers received outdated API specifications.</div>
-                        <div class="text-amber-400">4. Why? Technical documentation was not updated in central repository.</div>
-                        <div class="text-emerald-400">5. Why? (Root Cause): No formal policy requiring document updates prior to sprint release.</div>
+                    <p class="mb-2">The 5-Whys methodology systematically peels away superficial symptoms to uncover true root operational failures:</p>
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 font-mono text-xs space-y-2">
+                        <p class="text-slate-400">Problem Statement: Regional logistics permits delayed by 4 weeks.</p>
+                        <p class="text-amber-400">1. Why? Verification queue has 1,200 unreviewed physical files.</p>
+                        <p class="text-amber-400">2. Why? Only 2 officers possess manual signature authority.</p>
+                        <p class="text-amber-400">3. Why? Policy requires physical wet signatures for all risk tiers.</p>
+                        <p class="text-amber-400">4. Why? Risk categorization guidelines have not been updated since 2011.</p>
+                        <p class="text-emerald-400 font-bold">5. Why? (Root Cause): Absence of a mandatory annual regulatory review process.</p>
                     </div>
                 `
             },
@@ -758,14 +611,14 @@
                 id: "m1-c7",
                 title: "Chapter 7: Design Thinking Methodology",
                 content: `
-                    <div class="flex flex-wrap gap-2 text-xs">
-                        <span class="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full border border-brand-500/30 font-semibold">1. Empathize</span>
-                        <span class="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full border border-brand-500/30 font-semibold">2. Define</span>
-                        <span class="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full border border-brand-500/30 font-semibold">3. Ideate</span>
-                        <span class="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full border border-brand-500/30 font-semibold">4. Prototype</span>
-                        <span class="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full border border-brand-500/30 font-semibold">5. Test</span>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full text-xs border border-brand-500/30">1. Empathize</span>
+                        <span class="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full text-xs border border-brand-500/30">2. Define</span>
+                        <span class="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full text-xs border border-brand-500/30">3. Ideate</span>
+                        <span class="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full text-xs border border-brand-500/30">4. Prototype</span>
+                        <span class="px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full text-xs border border-brand-500/30">5. Test</span>
                     </div>
-                    <p class="text-xs text-slate-300 mt-3">A human-centered approach to innovation that integrates user needs, technological possibilities, and organizational requirements.</p>
+                    <p class="text-xs text-slate-300">Design Thinking prioritizes human-centered empathy to define real operational friction before leaping to solution architectures.</p>
                 `
             },
             {
@@ -773,7 +626,7 @@
                 title: "Chapter 8: Mind Mapping & Brainstorming Architectures",
                 content: `
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Mind mapping uses visual diagrams to organize ideas around a central problem node. Combined with structured brainstorming rules (e.g., deferring judgment, encouraging wild ideas, building on others' thoughts), it maximizes cognitive fluency.
+                        Mind mapping uses central problem nodes and radial branches to organize associations visually. Effective executive brainstorming requires deferring judgment during ideation, encouraging wild ideas, building on peer contributions, and maintaining strict timeboxes.
                     </p>
                 `
             },
@@ -781,11 +634,11 @@
                 id: "m1-c9",
                 title: "Chapter 9: Continuous Improvement - The PDSA Cycle",
                 content: `
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs text-center font-semibold">
-                        <div class="p-3 bg-slate-900 rounded-xl border border-blue-500/30 text-blue-400">PLAN<br><span class="text-[10px] font-normal text-slate-400">Define test & metrics</span></div>
-                        <div class="p-3 bg-slate-900 rounded-xl border border-emerald-500/30 text-emerald-400">DO<br><span class="text-[10px] font-normal text-slate-400">Execute small pilot</span></div>
-                        <div class="p-3 bg-slate-900 rounded-xl border border-amber-500/30 text-amber-400">STUDY<br><span class="text-[10px] font-normal text-slate-400">Analyze outcome data</span></div>
-                        <div class="p-3 bg-slate-900 rounded-xl border border-purple-500/30 text-purple-400">ACT<br><span class="text-[10px] font-normal text-slate-400">Standardize or adjust</span></div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-xs">
+                        <div class="p-3 bg-slate-900 rounded-xl border border-blue-500/30 text-blue-400 font-bold">PLAN<br><span class="font-normal text-slate-400">Hypothesis & Metrics</span></div>
+                        <div class="p-3 bg-slate-900 rounded-xl border border-emerald-500/30 text-emerald-400 font-bold">DO<br><span class="font-normal text-slate-400">Small-Scale Pilot</span></div>
+                        <div class="p-3 bg-slate-900 rounded-xl border border-amber-500/30 text-amber-400 font-bold">STUDY<br><span class="font-normal text-slate-400">Analyze Metric Results</span></div>
+                        <div class="p-3 bg-slate-900 rounded-xl border border-purple-500/30 text-purple-400 font-bold">ACT<br><span class="font-normal text-slate-400">Standardize or Adjust</span></div>
                     </div>
                 `
             },
@@ -804,9 +657,9 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-800 text-slate-300">
-                                <tr><td class="p-2 font-mono">KPI-CR-01</td><td class="p-2">Ideas Generated per Team / Quarter</td><td class="p-2">Numeric Count</td><td class="p-2">&ge; 15 qualified ideas</td></tr>
-                                <tr><td class="p-2 font-mono">KPI-CR-02</td><td class="p-2">Idea Implementation Conversion Rate</td><td class="p-2">Percentage (%)</td><td class="p-2">&ge; 25% adopted</td></tr>
-                                <tr><td class="p-2 font-mono">KPI-CR-03</td><td class="p-2">Process Efficiency Savings via Innovation</td><td class="p-2">Hours / Cost saved</td><td class="p-2">15% operational reduction</td></tr>
+                                <tr><td class="p-2 font-mono">KPI-CR-01</td><td class="p-2">Qualified Ideas Generated per Quarter</td><td class="p-2">Count</td><td class="p-2">&ge; 20 ideas/dept</td></tr>
+                                <tr><td class="p-2 font-mono">KPI-CR-02</td><td class="p-2">Idea Implementation Conversion Rate</td><td class="p-2">Percentage (%)</td><td class="p-2">&ge; 30% converted</td></tr>
+                                <tr><td class="p-2 font-mono">KPI-CR-03</td><td class="p-2">Cycle Time Savings via SCAMPER Initiatives</td><td class="p-2">Hours saved</td><td class="p-2">&ge; 20% reduction</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -816,69 +669,78 @@
                 id: "m1-c11",
                 title: "Chapter 11: Weighted Idea Evaluation Methodology",
                 content: `
-                    <p class="text-xs text-slate-300 mb-2">Ideas must be rigorously evaluated across 7 key parameters before committing resources:</p>
-                    <ol class="list-decimal pl-5 text-xs text-slate-300 space-y-1">
-                        <li>Expected Benefit (25%)</li><li>Implementation Feasibility (20%)</li><li>Resource Affordability (15%)</li><li>Time Efficiency (15%)</li><li>Sustainability (10%)</li><li>Stakeholder Acceptance (10%)</li><li>Ease of Measurement (5%)</li>
-                    </ol>
-                    <p class="text-xs text-brand-400 mt-2">Use our interactive scoring tool in the "Interactive Tools" tab to compute scores live!</p>
+                    <p class="text-xs text-slate-300 mb-2">Evaluates innovations on 7 weighted parameters out of 100%:</p>
+                    <ul class="list-disc pl-5 text-xs text-slate-300 space-y-1">
+                        <li>Strategic Alignment (25%)</li><li>Implementation Feasibility (20%)</li><li>Resource Affordability (15%)</li><li>Deployment Speed (15%)</li><li>Sustainability (10%)</li><li>Stakeholder Acceptance (10%)</li><li>Ease of Control (5%)</li>
+                    </ul>
                 `
             },
             {
                 id: "m1-c12",
                 title: "Chapter 12: Real-World Case Study - Public Sector Digitalization",
                 content: `
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs space-y-2">
-                        <span class="font-bold text-amber-400 block">Case Overview: Revenue Office Bottlenecks</span>
-                        <p class="text-slate-300">A municipal tax office experienced 6-hour physical wait times for tax clearings. By applying the SCAMPER "Eliminate" and "Substitute" steps, they replaced physical verification queues with an automated QR-code verification portal.</p>
-                        <p class="text-emerald-400 font-semibold">Outcome: Wait times dropped by 92%, and taxpayer satisfaction rose from 34% to 89% in 60 days.</p>
+                    <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs space-y-2">
+                        <span class="font-bold text-amber-400 block">Case Overview: Municipal Business Registration</span>
+                        <p class="text-slate-300">Facing a 21-day backlog, a city department applied SCAMPER. They substituted physical counter visits with a unified web portal (Combine) and eliminated 4 redundant supervisor approvals (Eliminate).</p>
+                        <p class="text-emerald-400 font-semibold">Result: Processing time slashed to 24 hours with zero additional staffing costs.</p>
                     </div>
                 `
             },
             {
                 id: "m1-c13",
-                title: "Chapter 13: Personal Action Plan Template for Creativity",
+                title: "Chapter 13: Personal Development Action Plan Template for Creativity",
                 content: `
-                    <p class="text-xs text-slate-300">Leaders should maintain an active journal mapping: 1. Identified Process Friction, 2. Applied Tool (SCAMPER / 5 Whys), 3. Pilot Target Date, 4. Success Indicator.</p>
+                    <p class="text-xs text-slate-300">Template for tracking personal innovation projects: 1. Target Friction, 2. Ideation Tool Used, 3. Pilot Benchmark, 4. Target Date, 5. Verified Outcome.</p>
                 `
             },
             {
                 id: "m1-c14",
-                title: "Chapter 14: Practice Self-Assessment (Creativity MCQs)",
+                title: "Chapter 14: Module Assessment - 10 MCQs & 8 Short Answer Questions",
                 content: `
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs space-y-3">
-                        <p class="font-semibold text-slate-200">Practice Q: Which element of creativity reflects the ability to shift perspectives and adapt concepts across domains?</p>
-                        <div class="space-y-1 text-slate-300">
-                            <div>A) Fluency</div>
-                            <div class="text-emerald-400 font-bold">B) Flexibility (Correct - Measures domain adaptability)</div>
-                            <div>C) Elaboration</div>
-                            <div>D) Originality</div>
+                    <div class="space-y-4 text-xs">
+                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
+                            <strong class="text-amber-400">Module 1 MCQs Sample:</strong>
+                            <p class="text-slate-200 mt-1">Q1: Which creativity element measures the volume of ideas produced?</p>
+                            <p class="text-emerald-400 font-bold mt-1">Answer: Fluency</p>
+                        </div>
+                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
+                            <strong class="text-amber-400">Module 1 Short Answer Questions:</strong>
+                            <ol class="list-decimal pl-4 space-y-1 text-slate-300 mt-1">
+                                <li>Differentiate between applied creativity and artistic creativity.</li>
+                                <li>Explain how fear of failure creates a cultural block in public institutions.</li>
+                                <li>List all 7 prompt steps of the SCAMPER methodology.</li>
+                                <li>Describe the 5-Whys process for identifying root causes.</li>
+                                <li>Outline the 5 phases of Design Thinking.</li>
+                                <li>What takes place during the 'Study' phase of a PDSA cycle?</li>
+                                <li>Why is weighted scoring superior to unweighted voting for idea selection?</li>
+                                <li>How does SCAMPER's 'Eliminate' step reduce operational overhead?</li>
+                            </ol>
                         </div>
                     </div>
                 `
             },
             {
                 id: "m1-c15",
-                title: "Chapter 15: Module Summary & Integration Blueprint",
+                title: "Chapter 15: Module Summary & Executive Integration Blueprint",
                 content: `
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Creativity is an operational engine. By combining structured ideation tools with empirical evaluation matrices, leaders can foster sustainable continuous improvement across public and corporate enterprise environments.
+                        Mastery of Applied Creativity provides executives with the structured tools necessary to systematically uncover root causes, generate fluently, evaluate empirically, and execute sustainably.
                     </p>
                 `
             }
         ];
 
         /* ==========================================================================
-           CURRICULUM DATA: MODULE 2 ROLE LEADERSHIP (16 CHAPTERS)
+           FULL DETAILED DATA: MODULE 2 ROLE LEADERSHIP (16 CHAPTERS + MCQS & SAQS)
            ========================================================================== */
-        const module2Data = [
+        const module2FullData = [
             {
                 id: "m2-c1",
                 title: "Chapter 1: Definition & Operational Meaning of Role Leadership",
                 content: `
-                    <p class="mb-3 text-xs text-slate-300"><strong>Role Leadership</strong> is the practice of demonstrating exemplary behavioral standards, operational clarity, and accountability inherent to one's formal and informal organization role.</p>
-                    <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-200 text-xs leading-relaxed">
-                        It transforms static job descriptions into active, purpose-driven leadership that inspires trust, drives team alignment, and guarantees organizational integrity.
-                    </div>
+                    <h4 class="text-sm font-bold text-emerald-400 mb-2">1.1 Governance Core Concept</h4>
+                    <p class="mb-3 text-xs text-slate-300"><strong>Role Leadership</strong> is the active practice of embodying exemplary behavioral standards, operational stewardship, and structural accountability inherent to an executive role.</p>
+                    <p class="text-xs text-slate-300">It bridges organizational strategy and front-line execution by translating abstract governance mandates into transparent, daily leadership habits.</p>
                 `
             },
             {
@@ -886,7 +748,10 @@
                 title: "Chapter 2: Key Objectives of Module Role Leadership",
                 content: `
                     <ul class="list-disc pl-5 space-y-1.5 text-xs text-slate-300">
-                        <li>Establish clear alignment between Authority, Responsibility, and Accountability.</li><li>Master structured 5-step delegation without micromanagement.</li><li>Cultivate emotional intelligence and conflict resolution frameworks.</li><li>Drive result-oriented execution and public stewardship.</li>
+                        <li>Master the Authority-Responsibility-Accountability (ARA) governance triad.</li>
+                        <li>Implement structured 5-step delegation to empower subordinates without losing control.</li>
+                        <li>Apply the Thomas-Kilmann conflict modes for executive negotiation.</li>
+                        <li>Establish transparent leadership KPI scorecards and talent retention protocols.</li>
                     </ul>
                 `
             },
@@ -894,14 +759,14 @@
                 id: "m2-c3",
                 title: "Chapter 3: The 7 Core Elements of Exemplary Role Leadership",
                 content: `
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
-                        <div class="p-2.5 bg-slate-900 rounded border border-slate-800">1. Vision Alignment</div>
-                        <div class="p-2.5 bg-slate-900 rounded border border-slate-800">2. High Ethical Standards</div>
-                        <div class="p-2.5 bg-slate-900 rounded border border-slate-800">3. Operational Accountability</div>
-                        <div class="p-2.5 bg-slate-900 rounded border border-slate-800">4. Empathetic Communication</div>
-                        <div class="p-2.5 bg-slate-900 rounded border border-slate-800">5. Empowerment & Trust</div>
-                        <div class="p-2.5 bg-slate-900 rounded border border-slate-800">6. Strategic Agility</div>
-                        <div class="p-2.5 bg-slate-900 rounded border border-slate-800 md:col-span-2">7. Resilience & Conflict Mastery</div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>1. Vision Alignment:</strong> Translating strategy into clear operational directives.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>2. High Ethical Integrity:</strong> Serving as an uncompromised moral compass.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>3. Operational Accountability:</strong> Owning final department outcomes.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>4. Empathetic Communication:</strong> Active listening and transparent feedback.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>5. Empowerment & Trust:</strong> Delegating authority with proper boundaries.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>6. Strategic Agility:</strong> Navigating organizational crises effectively.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800 md:col-span-2"><strong>7. Resilience & Conflict Mastery:</strong> Resolving interpersonal friction productively.</div>
                     </div>
                 `
             },
@@ -909,7 +774,9 @@
                 id: "m2-c4",
                 title: "Chapter 4: The 8 Key Responsibilities of an Effective Leader",
                 content: `
-                    <p class="text-xs text-slate-300 mb-2">1. Setting Clear Objectives 2. Resource Mobilization 3. Talent Development 4. Performance Monitoring 5. Stakeholder Engagement 6. Risk Mitigation 7. Fostering Collaboration 8. Continuous Process Review.</p>
+                    <div class="space-y-1.5 text-xs text-slate-300">
+                        <p>1. Setting Clear Objectives & KPIs</p><p>2. Efficient Resource Allocation</p><p>3. Talent Development & Coaching</p><p>4. Performance Monitoring & Audit</p><p>5. Stakeholder Alignment</p><p>6. Risk Mitigation & Compliance</p><p>7. Cultivating Psychological Safety</p><p>8. Driving Continuous Improvement</p>
+                    </div>
                 `
             },
             {
@@ -917,11 +784,11 @@
                 title: "Chapter 5: Comparative Analysis of 5 Major Leadership Styles",
                 content: `
                     <div class="space-y-2 text-xs">
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>Transformational:</strong> Inspires long-term vision & cultural shift.</div>
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>Transactional:</strong> Focuses on structured rewards, rules, and task completion.</div>
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>Servant Leadership:</strong> Prioritizes team needs, growth, and empowerment.</div>
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>Autocratic:</strong> Directive, high control; suitable for emergency crisis management.</div>
-                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>Laissez-Faire:</strong> Hands-off; effective only with highly autonomous experts.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>Transformational:</strong> Inspires long-term vision & cultural reinvention.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>Transactional:</strong> Manages via structured compliance, rules, and rewards.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>Servant Leadership:</strong> Focuses on empowering and serving team development needs.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>Autocratic:</strong> Centralized control; effective primarily during acute emergency crises.</div>
+                        <div class="p-3 bg-slate-900 rounded border border-slate-800"><strong>Laissez-Faire:</strong> Hands-off autonomy; effective only with highly skilled domain experts.</div>
                     </div>
                 `
             },
@@ -929,7 +796,7 @@
                 id: "m2-c6",
                 title: "Chapter 6: Role Modeling & Executive Presence",
                 content: `
-                    <p class="text-xs text-slate-300">Leaders communicate more through actions than words. Role modeling requires consistency in ethical decisions, punctuality, active listening, and composure under high operational pressure.</p>
+                    <p class="text-xs text-slate-300">Role modeling means leadership by example. Executive presence requires emotional composure under high-stress environments, punctuality, active listening, and transparent accountability.</p>
                 `
             },
             {
@@ -937,17 +804,17 @@
                 title: "Chapter 7: Triad of Governance - Authority, Responsibility & Accountability",
                 content: `
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs text-center">
-                        <div class="p-3 bg-slate-900 rounded-xl border border-indigo-500/30">
-                            <span class="font-bold text-indigo-400 block mb-1">AUTHORITY</span>
-                            The formal power & rights granted to make decisions and allocate resources.
+                        <div class="p-4 bg-slate-900 rounded-xl border border-indigo-500/30">
+                            <strong class="text-indigo-400 block mb-1">AUTHORITY</strong>
+                            The right and power granted to allocate resources and make decisions. (Can be delegated)
                         </div>
-                        <div class="p-3 bg-slate-900 rounded-xl border border-emerald-500/30">
-                            <span class="font-bold text-emerald-400 block mb-1">RESPONSIBILITY</span>
-                            The obligation to carry out assigned tasks and operational duties.
+                        <div class="p-4 bg-slate-900 rounded-xl border border-emerald-500/30">
+                            <strong class="text-emerald-400 block mb-1">RESPONSIBILITY</strong>
+                            The obligation to carry out assigned duties and tasks. (Can be delegated)
                         </div>
-                        <div class="p-3 bg-slate-900 rounded-xl border border-purple-500/30">
-                            <span class="font-bold text-purple-400 block mb-1">ACCOUNTABILITY</span>
-                            The ultimate answerability for final outcomes and results (Cannot be delegated).
+                        <div class="p-4 bg-slate-900 rounded-xl border border-purple-500/30">
+                            <strong class="text-purple-400 block mb-1">ACCOUNTABILITY</strong>
+                            The ultimate answerability for final outcomes. (CANNOT be delegated)
                         </div>
                     </div>
                 `
@@ -957,11 +824,11 @@
                 title: "Chapter 8: The 5-Step Delegation Model",
                 content: `
                     <ol class="list-decimal pl-5 text-xs text-slate-300 space-y-1">
-                        <li><strong>Task Selection:</strong> Identify appropriate tasks suitable for delegation.</li>
-                        <li><strong>Delegate Selection:</strong> Match task complexity with staff competence & readiness.</li>
-                        <li><strong>Clear Briefing:</strong> Define expected outcomes, boundaries, and deadlines.</li>
-                        <li><strong>Resource & Authority Provision:</strong> Grant necessary authority to execute.</li>
-                        <li><strong>Checkpoint Support & Feedback:</strong> Monitor progress without micromanaging.</li>
+                        <li><strong>Task Analysis:</strong> Determine tasks appropriate for delegation.</li>
+                        <li><strong>Delegate Selection:</strong> Match complexity to staff readiness and skill level.</li>
+                        <li><strong>Clear Briefing:</strong> Define specific target outcomes, boundaries, and deadlines.</li>
+                        <li><strong>Resource & Authority Provision:</strong> Grant formal authority needed to execute.</li>
+                        <li><strong>Checkpoint Monitoring & Coaching:</strong> Track progress without micromanagement.</li>
                     </ol>
                 `
             },
@@ -969,7 +836,14 @@
                 id: "m2-c9",
                 title: "Chapter 9: Conflict Management & Resolution Frameworks",
                 content: `
-                    <p class="text-xs text-slate-300">Effective leaders view conflict as an opportunity for operational clarity. Utilizing Thomas-Kilmann conflict modes (Collaborating, Compromising, Accommodating, Avoiding, Competing), leaders choose strategies based on relationship importance versus goal urgency.</p>
+                    <p class="text-xs text-slate-300 mb-2">Utilizing the Thomas-Kilmann Conflict Mode Instrument (TKM):</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>Competing:</strong> High assertiveness, low cooperation (Crisis response).</div>
+                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>Collaborating:</strong> High assertiveness, high cooperation (Win-Win solutions).</div>
+                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>Compromising:</strong> Moderate assertiveness & cooperation (Middle ground).</div>
+                        <div class="p-2 bg-slate-900 rounded border border-slate-800"><strong>Avoiding:</strong> Low assertiveness, low cooperation (Trivial issues).</div>
+                        <div class="p-2 bg-slate-900 rounded border border-slate-800 sm:col-span-2"><strong>Accommodating:</strong> Low assertiveness, high cooperation (Preserving relationships).</div>
+                    </div>
                 `
             },
             {
@@ -986,9 +860,9 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-800 text-slate-300">
-                                <tr><td class="p-2 font-mono">KPI-LD-01</td><td class="p-2">Team Engagement / Engagement Score</td><td class="p-2">&ge; 85% Positive</td></tr>
-                                <tr><td class="p-2 font-mono">KPI-LD-02</td><td class="p-2">On-Time Project Delegation Milestones</td><td class="p-2">&ge; 90% On-Schedule</td></tr>
-                                <tr><td class="p-2 font-mono">KPI-LD-03</td><td class="p-2">Retention Rate of Key Talent</td><td class="p-2">&ge; 95% Annual Retention</td></tr>
+                                <tr><td class="p-2 font-mono">KPI-LD-01</td><td class="p-2">Team Employee Engagement Score</td><td class="p-2">&ge; 85% Positive</td></tr>
+                                <tr><td class="p-2 font-mono">KPI-LD-02</td><td class="p-2">Delegated Project On-Time Milestone Completion</td><td class="p-2">&ge; 90% On-Schedule</td></tr>
+                                <tr><td class="p-2 font-mono">KPI-LD-03</td><td class="p-2">Key Talent Retention Rate</td><td class="p-2">&ge; 95% Annual Retention</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -996,43 +870,61 @@
             },
             {
                 id: "m2-c11",
-                title: "Chapter 11: Emotional Intelligence (EQ) in Leadership",
+                title: "Chapter 11: Emotional Intelligence (EQ) in Executive Leadership",
                 content: `
-                    <p class="text-xs text-slate-300">EQ encompasses 4 domains: Self-Awareness, Self-Management, Social Awareness (Empathy), and Relationship Management. High EQ leaders achieve higher team psychological safety and crisis resilience.</p>
+                    <p class="text-xs text-slate-300">EQ encompasses 4 core executive domains: 1. Self-Awareness, 2. Self-Management, 3. Social Awareness (Empathy), and 4. Relationship Management. High EQ leaders generate psychological safety and team trust.</p>
                 `
             },
             {
                 id: "m2-c12",
-                title: "Chapter 12: Public Stewardship & Ethics",
+                title: "Chapter 12: Public Stewardship & Governance Ethics",
                 content: `
-                    <p class="text-xs text-slate-300">Stewardship emphasizes safeguarding public trust, optimizing taxpayer resources, ensuring transparency, and adhering strictly to ethical codes of conduct.</p>
+                    <p class="text-xs text-slate-300">Stewardship obligates leaders to safeguard public funds, act with total financial transparency, eliminate conflicts of interest, and maximize long-term societal value.</p>
                 `
             },
             {
                 id: "m2-c13",
-                title: "Chapter 13: Case Study - Leading Through Crisis Transformation",
+                title: "Chapter 13: Detailed Case Study - Hospital Directorate Turnaround",
                 content: `
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs space-y-2">
-                        <span class="font-bold text-emerald-400 block">Case Overview: Supply Chain Disruption</span>
-                        <p class="text-slate-300">During a major supply chain freeze, a regional logistics director decentralized authority, allowing local station chiefs to negotiate local transport contracts within pre-approved monetary caps.</p>
-                        <p class="text-emerald-400 font-semibold">Outcome: Deliveries maintained 96% operational continuity while competitors experienced total shutdown.</p>
+                    <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs space-y-2">
+                        <span class="font-bold text-emerald-400 block">Case Study: Emergency Department Overcrowding</span>
+                        <p class="text-slate-300">A major hospital directorate faced severe patient delays and staff burnout. The incoming director decentralized operational decision-making (Delegation), established clear ARA matrices for head nurses, and adopted a Collaborating conflict mode between surgical and emergency teams.</p>
+                        <p class="text-emerald-400 font-semibold">Outcome: Patient wait times decreased by 48% within 90 days, and nurse retention rose to 94%.</p>
                     </div>
                 `
             },
             {
                 id: "m2-c14",
-                title: "Chapter 14: Personal Leadership Development Plan",
+                title: "Chapter 14: Personal Leadership Development Plan (PDP) Architecture",
                 content: `
-                    <p class="text-xs text-slate-300">A structured framework to audit personal leadership strengths, identify developmental blind spots, and schedule quarterly 360-degree peer reviews.</p>
+                    <p class="text-xs text-slate-300">A structured self-assessment roadmap mapping individual leadership gaps to targeted interventions, 360-degree feedback reviews, and measurable KPI benchmarks.</p>
                 `
             },
             {
                 id: "m2-c15",
-                title: "Chapter 15: Module Practice Assessment",
+                title: "Chapter 15: Module Assessment - 10 MCQs & 10 Short Answer Questions",
                 content: `
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs space-y-2">
-                        <p class="font-semibold text-slate-200">Practice Q: Can ultimate Accountability be delegated to subordinate team members?</p>
-                        <p class="text-rose-400 font-bold">Answer: No. Authority and Responsibility can be delegated, but ultimate Accountability remains with the leader.</p>
+                    <div class="space-y-4 text-xs">
+                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
+                            <strong class="text-emerald-400">Module 2 MCQs Sample:</strong>
+                            <p class="text-slate-200 mt-1">Q1: Can ultimate Accountability be delegated to subordinate team members?</p>
+                            <p class="text-rose-400 font-bold mt-1">Answer: No. Authority and Responsibility are delegable, but Accountability remains strictly with the leader.</p>
+                        </div>
+                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
+                            <strong class="text-emerald-400">Module 2 Short Answer Questions:</strong>
+                            <ol class="list-decimal pl-4 space-y-1 text-slate-300 mt-1">
+                                <li>Define Role Leadership in an executive governance context.</li>
+                                <li>Explain the key distinction between Responsibility and Accountability.</li>
+                                <li>List the 5 major leadership styles evaluated in Chapter 5.</li>
+                                <li>Under what operational condition is Autocratic leadership appropriate?</li>
+                                <li>Describe all 5 steps of the Executive Delegation Model.</li>
+                                <li>Explain the 4 domains of Emotional Intelligence (EQ).</li>
+                                <li>Differentiate between 'Collaborating' and 'Compromising' in conflict resolution.</li>
+                                <li>What is the primary objective of public sector stewardship?</li>
+                                <li>How does micromanagement damage employee retention and growth?</li>
+                                <li>What role does 360-degree feedback play in personal leadership development?</li>
+                            </ol>
+                        </div>
                     </div>
                 `
             },
@@ -1040,208 +932,108 @@
                 id: "m2-c16",
                 title: "Chapter 16: Leadership Governance Synthesis",
                 content: `
-                    <p class="text-xs text-slate-300">Exemplary role leadership combines personal integrity, clear delegation, high emotional intelligence, and relentless focus on value-adding organizational results.</p>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Exemplary Role Leadership synthesizes individual integrity, emotional intelligence, transparent delegation, and unyielding commitment to organizational results.
+                    </p>
                 `
             }
         ];
 
         /* ==========================================================================
-           COMPREHENSIVE BEHAVIORAL TEST BANK (70+ MCQs)
+           COMPREHENSIVE TEST BANK: 70 UNIQUE, NON-REPEATING MCQS
            ========================================================================== */
-        const examQuestionsData = [
-            // WORK EXECUTION PILLAR (1 - 25)
-            {
-                id: 1,
-                pillar: "Work Execution",
-                category: "Strategic Thinking",
-                question: "When evaluating long-term operational plans, a strategic leader primary focuses on:",
-                options: [
-                    "A) Immediate short-term cost savings only",
-                    "B) Aligning operational capabilities with future organizational vision & market trends",
-                    "C) Maintaining legacy workflows to avoid team disruption",
-                    "D) Delegating all strategic planning to external consultants"
-                ],
-                correct: 1,
-                explanation: "Strategic thinking requires aligning internal operational capabilities with future vision and external trends."
-            },
-            {
-                id: 2,
-                pillar: "Work Execution",
-                category: "Innovation",
-                question: "In the SCAMPER methodology, the letter 'E' stands for:",
-                options: [
-                    "A) Evaluate existing performance",
-                    "B) Expand market coverage",
-                    "C) Eliminate redundant or non-value-adding process steps",
-                    "D) Execute pilot initiatives"
-                ],
-                correct: 2,
-                explanation: "SCAMPER: S=Substitute, C=Combine, A=Adapt, M=Modify, P=Put to another use, E=Eliminate, R=Reverse."
-            },
-            {
-                id: 3,
-                pillar: "Work Execution",
-                category: "Market Building",
-                question: "Public sector market building requires leaders to prioritize:",
-                options: [
-                    "A) Maximizing profit margins above service quality",
-                    "B) Public value creation, service accessibility, and stakeholder trust",
-                    "C) Restricting access to administrative services",
-                    "D) Eliminating regulatory oversight"
-                ],
-                correct: 1,
-                explanation: "Market building in public administration focuses on generating sustainable public value and expanding service accessibility."
-            },
-            {
-                id: 4,
-                pillar: "Work Execution",
-                category: "Value-Adding Work Focus",
-                question: "What is the primary indicator of a value-adding work activity?",
-                options: [
-                    "A) It consumes significant administrative labor hours",
-                    "B) It directly improves service outcomes or customer satisfaction",
-                    "C) It requires multiple management sign-offs",
-                    "D) It generates high volume documentation"
-                ],
-                correct: 1,
-                explanation: "Value-adding activities directly enhance the final quality or utility experienced by the stakeholder or client."
-            },
-            {
-                id: 5,
-                pillar: "Work Execution",
-                category: "SCAMPER Application",
-                question: "A manager combines tax filing and business registration into a single portal. Which SCAMPER step was applied?",
-                options: [
-                    "A) Rearrange",
-                    "B) Combine",
-                    "C) Substitute",
-                    "D) Adapt"
-                ],
-                correct: 1,
-                explanation: "Merging two distinct operational processes into a single unified service represents 'Combine'."
-            },
-            {
-                id: 6,
-                pillar: "Work Execution",
-                category: "Problem Solving",
-                question: "The core purpose of conducting a 5-Whys analysis is to:",
-                options: [
-                    "A) Assign blame to specific individuals for mistakes",
-                    "B) Drill down past superficial symptoms to locate the root systemic failure",
-                    "C) Justify expanding team size",
-                    "D) Delay taking corrective action"
-                ],
-                correct: 1,
-                explanation: "5-Whys systematically uncovers underlying root causes rather than addressing superficial symptoms."
-            },
-            {
-                id: 7,
-                pillar: "Work Execution",
-                category: "Continuous Improvement",
-                question: "During which phase of the PDSA cycle is pilot data analyzed against target metrics?",
-                options: [
-                    "A) Plan",
-                    "B) Do",
-                    "C) Study",
-                    "D) Act"
-                ],
-                correct: 2,
-                explanation: "The 'Study' phase involves inspecting collected pilot metrics against predicted outcomes."
-            },
-            {
-                id: 8,
-                pillar: "Work Execution",
-                category: "Strategic Alignment",
-                question: "Operational alignment is achieved when daily staff activities directly support:",
-                options: [
-                    "A) Departmental informal habits",
-                    "B) High-level strategic vision and organization targets",
-                    "C) Individual manager personal preferences",
-                    "D) Immediate crisis resolution only"
-                ],
-                correct: 1,
-                explanation: "Alignment occurs when front-line activities map directly to top-tier strategic goals."
-            },
-            {
-                id: 9,
-                pillar: "Work Execution",
-                category: "Process Optimization",
-                question: "Which barrier to creativity occurs when staff are terrified of making mistakes?",
-                options: [
-                    "A) Intellectual block",
-                    "B) Cultural / Fear-based block",
-                    "C) Environmental block",
-                    "D) Perceptual block"
-                ],
-                correct: 1,
-                explanation: "Risk aversion and fear of failure represent cultural and psychological blocks to innovation."
-            },
-            {
-                id: 10,
-                pillar: "Work Execution",
-                category: "Metrics & KPIs",
-                question: "A well-designed Key Performance Indicator (KPI) must always be:",
-                options: [
-                    "A) Subjective and open to interpretation",
-                    "B) Quantifiable, actionable, and tied to specific timeframes",
-                    "C) Changed on a daily basis",
-                    "D) Kept confidential from execution teams"
-                ],
-                correct: 1,
-                explanation: "KPIs must be SMART (Specific, Measurable, Achievable, Relevant, Time-bound)."
-            },
-            // Generate remaining questions programmatically to reach 70+
+        const testBank70UniqueMCQs = [
+            // WORK EXECUTION PILLAR (Q1 - Q25)
+            { id: 1, pillar: "Work Execution", cat: "Strategic Thinking", question: "1. What is the primary focus of strategic thinking in an executive context?", options: ["A) Maximizing short-term routine activity", "B) Aligning internal operational capabilities with future vision and external trends", "C) Minimizing communication with external stakeholders", "D) Enforcing strict legacy procedures without alteration"], correct: 1, exp: "Strategic thinking requires aligning operational capabilities with long-term strategic vision." },
+            { id: 2, pillar: "Work Execution", cat: "SCAMPER Innovation", question: "2. In the SCAMPER framework, what does the letter 'E' represent?", options: ["A) Evaluate project costs", "B) Expand team size", "C) Eliminate non-value-adding steps or redundancies", "D) Execute pilot plans"], correct: 2, exp: "E stands for Eliminate in the SCAMPER framework." },
+            { id: 3, pillar: "Work Execution", cat: "Market Building", question: "3. Public sector market building primarily emphasizes:", options: ["A) Profit maximization over access", "B) Public value creation, service accessibility, and stakeholder trust", "C) Restricting regulatory access", "D) Reducing transparency"], correct: 1, exp: "Public sector market building centers on public value and broad accessibility." },
+            { id: 4, pillar: "Work Execution", cat: "Value-Adding Work", question: "4. An activity is classified as 'value-adding' if it directly:", options: ["A) Increases supervisor approval steps", "B) Enhances final quality or utility experienced by the stakeholder", "C) Consumes maximum budget", "D) Generates paper documentation"], correct: 1, exp: "Value-adding activities directly benefit the end beneficiary or service quality." },
+            { id: 5, pillar: "Work Execution", cat: "SCAMPER Application", question: "5. Merging tax declaration and business licensing into a single portal applies which SCAMPER step?", options: ["A) Rearrange", "B) Combine", "C) Substitute", "D) Adapt"], correct: 1, exp: "Combining separate processes into one unified portal is 'Combine'." },
+            { id: 6, pillar: "Work Execution", cat: "Root Cause Analysis", question: "6. What is the main objective of performing a 5-Whys root cause analysis?", options: ["A) Assign personal blame to employees", "B) Drill past superficial symptoms to uncover systemic failures", "C) Justify budget increases", "D) Delay project deadlines"], correct: 1, exp: "5-Whys peels back symptoms to expose systemic root causes." },
+            { id: 7, pillar: "Work Execution", cat: "Continuous Improvement", question: "7. During which phase of the PDSA cycle is pilot metric data analyzed?", options: ["A) Plan", "B) Do", "C) Study", "D) Act"], correct: 2, exp: "The 'Study' phase focuses on analyzing data collected during the pilot." },
+            { id: 8, pillar: "Work Execution", cat: "Strategic Alignment", question: "8. Strategic operational alignment is present when front-line activities:", options: ["A) Diverge from senior directives", "B) Map directly to overarching organizational vision and KPIs", "C) Follow informal personal habits", "D) Respond only to daily emergencies"], correct: 1, exp: "Alignment exists when daily work directly supports strategic targets." },
+            { id: 9, pillar: "Work Execution", cat: "Innovation Barriers", question: "9. A team hesitant to propose novel ideas due to fear of reprimand suffers from a:", options: ["A) Intellectual block", "B) Cultural / fear-based block", "C) Perceptual block", "D) Environmental block"], correct: 1, exp: "Fear of negative repercussions constitutes a cultural/fear-based block." },
+            { id: 10, pillar: "Work Execution", cat: "Performance Metrics", question: "10. Key Performance Indicators (KPIs) must adhere to which criterion?", options: ["A) Subjective estimation", "B) SMART parameters (Specific, Measurable, Achievable, Relevant, Time-bound)", "C) Constant unannounced changes", "D) Complete secrecy"], correct: 1, exp: "KPIs must be SMART to provide clear, actionable evaluation." },
+            { id: 11, pillar: "Work Execution", cat: "Design Thinking", question: "11. What is the foundational first step of Design Thinking?", options: ["A) Prototype development", "B) User Empathy", "C) Solution Testing", "D) Idea Matrix Scoring"], correct: 1, exp: "Empathizing with users is the starting point of Design Thinking." },
+            { id: 12, pillar: "Work Execution", cat: "SCAMPER Substitution", question: "12. Replacing physical paper verifications with cryptographic digital signatures represents:", options: ["A) Substitute", "B) Reverse", "C) Magnify", "D) Put to another use"], correct: 0, exp: "Swapping paper for digital verification is 'Substitute'." },
+            { id: 13, pillar: "Work Execution", cat: "Ideation Technique", question: "13. Brainstorming sessions are most effective when leaders enforce:", options: ["A) Immediate critique of bad ideas", "B) Deferment of judgment during ideation", "C) Strict adherence to hierarchy", "D) Brief 2-minute time limits"], correct: 1, exp: "Deferring judgment fosters psychological safety and idea fluency." },
+            { id: 14, pillar: "Work Execution", cat: "Weighted Scoring", question: "14. In a weighted idea-scoring matrix, why are strategic benefits assigned high weight?", options: ["A) To ensure alignment with long-term organizational goals", "B) To favor low-cost quick fixes", "C) To bypass feasibility checks", "D) To ignore stakeholder feedback"], correct: 0, exp: "High weight on strategic benefit ensures projects drive core objectives." },
+            { id: 15, pillar: "Work Execution", cat: "Operational Efficiency", question: "15. Process cycle time reduction is measured under which operational pillar?", options: ["A) Human Relations", "B) Work Execution", "C) Ethical Stewardship", "D) Informal Networking"], correct: 1, exp: "Cycle time optimization is a core component of Work Execution." },
+            { id: 16, pillar: "Work Execution", cat: "Creativity Elements", question: "16. Which element of creativity evaluates the statistical rarity of an idea?", options: ["A) Fluency", "B) Flexibility", "C) Originality", "D) Elaboration"], correct: 2, exp: "Originality measures novelty and statistical rarity." },
+            { id: 17, pillar: "Work Execution", cat: "SCAMPER Elimination", question: "17. Removing 3 redundant middle-management approval steps directly applies:", options: ["A) Adapt", "B) Eliminate", "C) Combine", "D) Modify"], correct: 1, exp: "Deleting unnecessary workflow steps represents 'Eliminate'." },
+            { id: 18, pillar: "Work Execution", cat: "PDSA Application", question: "18. Standardizing a successful pilot process across all regional branches occurs in:", options: ["A) Plan", "B) Do", "C) Study", "D) Act"], correct: 3, exp: "The 'Act' phase involves institutionalizing successful pilot improvements." },
+            { id: 19, pillar: "Work Execution", cat: "Root Cause Identification", question: "19. In a 5-Whys exercise, stopping at the first 'Why' results in treating:", options: ["A) The root cause", "B) A superficial symptom", "C) The strategic vision", "D) The budget cap"], correct: 1, exp: "Stopping prematurely addresses only superficial symptoms." },
+            { id: 20, pillar: "Work Execution", cat: "Decision Matrix", question: "20. An idea scoring below 60 on a weighted matrix should typically be:", options: ["A) Immediately deployed enterprise-wide", "B) Rejected or heavily re-evaluated", "C) Fast-tracked without review", "D) Assigned maximum capital"], correct: 1, exp: "Scores below 60 signal high risk or inadequate return." },
+            { id: 21, pillar: "Work Execution", cat: "Problem Statement", question: "21. A well-formulated problem statement must be:", options: ["A) Vague and flexible", "B) Specific, objective, and outcome-oriented", "C) Focused on employee personalities", "D) Restricted to financial numbers"], correct: 1, exp: "Clarity and objectivity in problem definition guide effective ideation." },
+            { id: 22, pillar: "Work Execution", cat: "Change Management", question: "22. The primary operational risk when introducing creative workflow automation is:", options: ["A) Staff adoption resistance and inadequate training", "B) Excessive speed of delivery", "C) Excessive documentation", "D) Over-allocation of praise"], correct: 0, exp: "User resistance and training deficits represent key implementation risks." },
+            { id: 23, pillar: "Work Execution", cat: "Resource Optimization", question: "23. Resource optimization requires balancing operational speed with:", options: ["A) Rigid bureaucracy", "B) Quality control and safety standards", "C) Personal executive preference", "D) Arbitrary budget cuts"], correct: 1, exp: "Efficiency gains must not compromise essential quality or safety standards." },
+            { id: 24, pillar: "Work Execution", cat: "Agile Execution", question: "24. Rapid prototyping allows teams to test operational concepts with:", options: ["A) Maximum financial outlay", "B) Minimum resource commitment before full roll-out", "C) No user evaluation", "D) Permanent infrastructure"], correct: 1, exp: "Prototypes enable low-cost, rapid testing of assumptions." },
+            { id: 25, pillar: "Work Execution", cat: "Benchmarking", question: "25. Comparing internal departmental performance against top-tier external organizations is:", options: ["A) Internal auditing", "B) Competitive benchmarking", "C) Micro-managing", "D) SCAMPER Rearranging"], correct: 1, exp: "Benchmarking evaluates performance against external best-in-class standards." },
+
+            // HUMAN RELATIONS PILLAR (Q26 - Q50)
+            { id: 26, pillar: "Human Relations", cat: "Role Modeling", question: "26. Exemplary role modeling by an executive requires:", options: ["A) Demanding standards that the leader personally ignores", "B) Consistent alignment between stated values and observable behavior", "C) Delegating all ethical responsibility to HR", "D) Maintaining total isolation from team operations"], correct: 1, exp: "Role modeling is defined by alignment between words and actions." },
+            { id: 27, pillar: "Human Relations", cat: "ARA Triad", question: "27. Which element of the Authority-Responsibility-Accountability triad CANNOT be delegated?", options: ["A) Authority", "B) Task Responsibility", "C) Ultimate Accountability", "D) Technical Execution"], correct: 2, exp: "Accountability remains solely with the leader." },
+            { id: 28, pillar: "Human Relations", cat: "Delegation Governance", question: "28. What is the first step in the formal 5-step Executive Delegation Model?", options: ["A) Delegate selection", "B) Task analysis and selection", "C) Checkpoint review", "D) Authority provision"], correct: 1, exp: "Delegation begins with analyzing tasks to select appropriate work." },
+            { id: 29, pillar: "Human Relations", cat: "Leadership Styles", question: "29. Which leadership style is most effective during an acute, time-critical emergency crisis?", options: ["A) Laissez-faire", "B) Autocratic / Directive", "C) Democratic consensus", "D) Servant leadership"], correct: 1, exp: "Crises require swift, directive command and decision-making." },
+            { id: 30, pillar: "Human Relations", cat: "Conflict Resolution", question: "30. According to Thomas-Kilmann frameworks, a 'Collaborating' conflict style aims for:", options: ["A) Win-Win integration of both parties' core concerns", "B) Quick temporary compromise", "C) Complete surrender to avoid friction", "D) Enforcing authority by force"], correct: 0, exp: "Collaborating seeks a comprehensive win-win solution." },
+            { id: 31, pillar: "Human Relations", cat: "Emotional Intelligence", question: "31. An executive who accurately recognizes their own emotional triggers under stress demonstrates high:", options: ["A) Social awareness", "B) Self-awareness", "C) Relationship management", "D) Transactional control"], correct: 1, exp: "Recognizing one's emotional state is the core of self-awareness." },
+            { id: 32, pillar: "Human Relations", cat: "Psychological Safety", question: "32. Psychological safety in a team environment means employees feel safe to:", options: ["A) Ignore organizational policies", "B) Take calculated interpersonal risks and report mistakes without fear of humiliation", "C) Avoid performance reviews", "D) Delegate their work back to leadership"], correct: 1, exp: "Psychological safety allows open reporting and constructive risk-taking." },
+            { id: 33, pillar: "Human Relations", cat: "Empathetic Communication", question: "33. Active listening by a department leader involves:", options: ["A) Formulating rebuttals while the speaker talks", "B) Paraphrasing messages and validating emotional context before responding", "C) Multitasking on email during briefings", "D) Interrupting to save time"], correct: 1, exp: "Active listening requires validating and confirming understanding before responding." },
+            { id: 34, pillar: "Human Relations", cat: "Talent Development", question: "34. Effective coaching by a manager focuses primarily on:", options: ["A) Telling employees exactly what to do step-by-step", "B) Asking guiding questions to build problem-solving capability in subordinates", "C) Performing the employee's work to ensure quality", "D) Identifying grounds for termination"], correct: 1, exp: "Coaching uses inquiry to develop autonomous problem-solving capabilities." },
+            { id: 35, pillar: "Human Relations", cat: "Conflict Avoidance", question: "35. Using an 'Avoiding' conflict mode is appropriate when the issue is:", options: ["A) Critical to core strategy", "B) Trivial or when emotional cool-down time is urgently required", "C) A chronic contractual dispute", "D) Related to ethical violations"], correct: 1, exp: "Avoidance is suitable for trivial matters or cooling down high emotions." },
+            { id: 36, pillar: "Human Relations", cat: "Servant Leadership", question: "36. A core behavior of a Servant Leader is:", options: ["A) Prioritizing personal career growth above team needs", "B) Removing operational obstacles for staff and facilitating their growth", "C) Enforcing strict hierarchical distance", "D) Centralizing decision-making"], correct: 1, exp: "Servant leadership focuses on empowering followers and removing barriers." },
+            { id: 37, pillar: "Human Relations", cat: "360-Degree Feedback", question: "37. The primary benefit of 360-degree performance feedback is:", options: ["A) Eliminating the need for formal metrics", "B) Providing comprehensive multi-source perspectives on leadership behavior", "C) Allowing anonymous personal attacks", "D) Replacing supervisor evaluation completely"], correct: 1, exp: "360 feedback synthesizes views from peers, subordinates, and supervisors." },
+            { id: 38, pillar: "Human Relations", cat: "Micromanagement Mitigation", question: "38. To prevent micromanagement after delegating a complex task, a leader should:", options: ["A) Inspect work every hour without notice", "B) Establish agreed-upon milestone checkpoint schedules and outcome metrics", "C) Never communicate until the final deadline", "D) Take back the task at the first minor error"], correct: 1, exp: "Clear checkpoint schedules maintain oversight without micromanaging." },
+            { id: 39, pillar: "Human Relations", cat: "Ethical Integrity", question: "39. When faced with a conflict of interest, an ethical executive must immediately:", options: ["A) Hide the conflict if financial amounts are small", "B) Disclose the conflict transparently and recuse themselves from decisions", "C) Consult peers to cover up the situation", "D) Resign immediately without explanation"], correct: 1, exp: "Disclosure and recusal represent standard governance protocol." },
+            { id: 40, pillar: "Human Relations", cat: "Transformational Leadership", question: "40. Transformational leaders achieve high engagement primarily by:", options: ["A) Offering monetary bonuses for every task", "B) Communicating a compelling shared vision and intellectually stimulating team members", "C) Enforcing strict punishment for non-compliance", "D) Maintaining the status quo"], correct: 1, exp: "Transformational leaders motivate through shared vision and intellectual challenge." },
+            { id: 41, pillar: "Human Relations", cat: "Team Diversity", question: "41. Diverse functional teams generate higher creative outputs because they:", options: ["A) Always agree without debate", "B) Bring varied cognitive perspectives and experiences to problem solving", "C) Require less communication effort", "D) Execute faster without planning"], correct: 1, exp: "Cognitive diversity broadens problem perspective and innovation potential." },
+            { id: 42, pillar: "Human Relations", cat: "Negotiation Dynamics", question: "42. In principled negotiation, leaders should separate the people from the:", options: ["A) Organization", "B) Problem", "C) Contract", "D) Budget"], correct: 1, exp: "Separating personal dynamics from objective problems is key to negotiation." },
+            { id: 43, pillar: "Human Relations", cat: "Feedback Delivery", question: "43. Effective constructive feedback must be delivered:", options: ["A) In public to set an example for others", "B) Privately, promptly, and focused on specific observable behaviors", "C) Continuously during staff social events", "D) Only during annual reviews"], correct: 1, exp: "Constructive feedback should be private, timely, and behavior-focused." },
+            { id: 44, pillar: "Human Relations", cat: "Change Communication", question: "44. When communicating major structural change, leaders must address:", options: ["A) Only the positive benefits", "B) Both the strategic rationale and the personal impact on staff ('WIIFM')", "C) High-level financials exclusively", "D) Confidential management debates"], correct: 1, exp: "Addressing personal operational impact builds trust during change." },
+            { id: 45, pillar: "Human Relations", cat: "Emotional Regulation", question: "45. An executive demonstrating high self-management during a crisis will:", options: ["A) Vent frustration publicly to pressure staff", "B) Maintain emotional composure and focus on constructive action", "C) Deny the crisis exists", "D) Delegate decision-making to junior staff"], correct: 1, exp: "Self-management preserves executive composure and constructive focus." },
+            { id: 46, pillar: "Human Relations", cat: "Conflict Accommodation", question: "46. Choosing an 'Accommodating' conflict style is strategic when:", options: ["A) The issue is of supreme importance to your department", "B) Preserving long-term harmony and relationship is more vital than winning the point", "C) An immediate safety threat exists", "D) You possess absolute authority"], correct: 1, exp: "Accommodation prioritizes relationship preservation over winning non-critical issues." },
+            { id: 47, pillar: "Human Relations", cat: "Inclusion Governance", question: "47. Inclusive leadership in meeting management is evidenced by:", options: ["A) Allowing dominant voices to dictate decisions", "B) Actively soliciting input from quieter or junior team members", "C) Restricting speaking time to senior leaders", "D) Canceling meetings to save time"], correct: 1, exp: "Inclusive leaders intentionally draw out perspectives from all members." },
+            { id: 48, pillar: "Human Relations", cat: "Empowerment Boundaries", question: "48. True employee empowerment requires granting authority within clearly defined:", options: ["A) Financial infinity", "B) Operational boundaries and decision guardrails", "C) Informal rumors", "D) Daily written instructions"], correct: 1, exp: "Empowerment requires clear boundaries within which staff can make decisions." },
+            { id: 49, pillar: "Human Relations", cat: "Trust Building", question: "49. Organizational trust is most rapidly eroded by executive:", options: ["A) Admitting operational mistakes", "B) Inconsistency between actions and promises", "C) Delegating major projects", "D) Setting challenging goals"], correct: 1, exp: "Inconsistency between words and actions undermines trust." },
+            { id: 50, pillar: "Human Relations", cat: "Recognition Governance", question: "50. Employee recognition programs drive higher engagement when rewards are:", options: ["A) Distributed equally regardless of effort", "B) Tied directly to specific, exemplary behaviors and achievement metrics", "C) Kept confidential from the team", "D) Awarded exclusively to executive managers"], correct: 1, exp: "Metric-tied, behavior-specific recognition reinforces high performance." },
+
+            // RESULT ORIENTATION PILLAR (Q51 - Q70)
+            { id: 51, pillar: "Result Orientation", cat: "Accountability Metrics", question: "51. A result-oriented leader measures departmental success primarily by:", options: ["A) Total hours logged in the office", "B) Verified output quality, outcomes, and milestone achievements", "C) The volume of emails sent", "D) Subjective manager impression"], correct: 1, exp: "Result orientation prioritizes verifiable outcomes over activity hours." },
+            { id: 52, pillar: "Result Orientation", cat: "Time Management", question: "52. Under the Eisenhower Matrix, urgent and important tasks should be:", options: ["A) Delegated immediately", "B) Executed personally and promptly", "C) Scheduled for next month", "D) Eliminated"], correct: 1, exp: "Urgent and important tasks require direct, immediate action." },
+            { id: 53, pillar: "Result Orientation", cat: "Performance Tracking", question: "53. What is the primary function of a balanced scorecard in result governance?", options: ["A) Track financial metrics exclusively", "B) Provide a multi-dimensional view of performance across financial, customer, internal process, and learning growth metrics", "C) Replace human performance reviews", "D) Simplify employee disciplinary filings"], correct: 1, exp: "Balanced scorecards evaluate performance across multi-dimensional criteria." },
+            { id: 54, pillar: "Result Orientation", cat: "Resource Stewardship", question: "54. Public stewardship requires executives to manage public funds with:", options: ["A) Maximum personal discretion", "B) Fiduciary integrity, transparency, and optimization of public value", "C) Minimal reporting", "D) Focus on political expedience"], correct: 1, exp: "Stewardship demands fiduciary integrity and public value optimization." },
+            { id: 55, pillar: "Result Orientation", cat: "Continuous Audit", question: "55. Regular operational audits are conducted primarily to:", options: ["A) Penalize team members", "B) Verify process compliance, identify inefficiencies, and safeguard assets", "C) Increase paperwork requirements", "D) Slow down project delivery"], correct: 1, exp: "Audits verify compliance and identify operational improvements." },
+            { id: 56, pillar: "Result Orientation", cat: "KPI Target Setting", question: "56. Operational targets that are set impossibly high without resource alignment cause:", options: ["A) High long-term innovation", "B) Team burnout, demotivation, and potential quality cutting", "C) Increased retention", "D) Automatic efficiency gains"], correct: 1, exp: "Unrealistic targets induce burnout and compromise quality." },
+            { id: 57, pillar: "Result Orientation", cat: "Milestone Management", question: "57. Dividing a 1-year strategic goal into quarterly milestones enables:", options: ["A) Delaying work until Q4", "B) Early detection of variance and course correction", "C) Triple documentation", "D) Micromanagement"], correct: 1, exp: "Quarterly milestones allow timely detection of project variance." },
+            { id: 58, pillar: "Result Orientation", cat: "Cost-Benefit Analysis", question: "58. Prior to approving a major capital investment, an executive must conduct a:", options: ["A) Informal poll", "B) Rigorous Cost-Benefit Analysis (CBA)", "C) SCAMPER Rearrange step", "D) Thomas-Kilmann assessment"], correct: 1, exp: "Cost-benefit analysis quantifies financial and operational feasibility." },
+            { id: 59, pillar: "Result Orientation", cat: "Bottleneck Resolution", question: "59. Theory of Constraints (TOC) dictates that operational throughput is limited by:", options: ["A) The strongest process link", "B) The single tightest operational bottleneck", "C) Total employee headcount", "D) Executive vision"], correct: 1, exp: "System throughput is governed entirely by its bottleneck." },
+            { id: 60, pillar: "Result Orientation", cat: "Service Level Agreements", question: "60. Service Level Agreements (SLAs) establish formal contracts regarding:", options: ["A) Employee salary scales", "B) Expected performance standards, turnaround times, and delivery metrics between service units", "C) Strategic vision statements", "D) Executive career paths"], correct: 1, exp: "SLAs define operational standards and delivery expectations between units." },
+            { id: 61, pillar: "Result Orientation", cat: "Quality Assurance", question: "61. Quality Assurance (QA) differs from Quality Control (QC) in that QA is:", options: ["A) Reactive inspection after production", "B) Proactive process management to prevent defects", "C) Focused only on customer service", "D) Executed by external auditors only"], correct: 1, exp: "QA is proactive prevention; QC is reactive detection." },
+            { id: 62, pillar: "Result Orientation", cat: "Risk Management", question: "62. Developing contingency plans for high-impact, low-probability operational risks represents:", options: ["A) Wasteful planning", "B) Proactive Risk Mitigation", "C) Lack of confidence", "D) Laissez-faire management"], correct: 1, exp: "Contingency planning mitigates severe operational disruptions." },
+            { id: 63, pillar: "Result Orientation", cat: "Priority Management", question: "63. The Pareto Principle (80/20 Rule) suggests that:", options: ["A) 80% of results come from 20% of focused efforts/causes", "B) All tasks require equal time allocation", "C) 80% of budget should go to marketing", "D) 20% of employees do 100% of the work"], correct: 0, exp: "Pareto indicates a minority of causes drive the majority of outcomes." },
+            { id: 64, pillar: "Result Orientation", cat: "Performance Reviews", question: "64. Periodic performance appraisals are most effective when conducted as:", options: ["A) One-way downward lectures", "B) Continuous, two-way dialogue evaluating objective KPI metrics", "C) Annual surprises without prior feedback", "D) Informal casual conversations"], correct: 1, exp: "Two-way dialogue grounded in objective KPIs drives performance." },
+            { id: 65, pillar: "Result Orientation", cat: "Workflow Standardization", question: "65. Standard Operating Procedures (SOPs) are designed to ensure:", options: ["A) Complete elimination of employee thinking", "B) Operational consistency, quality compliance, and institutional memory", "C) High bureaucratic delay", "D) Frequent process changes"], correct: 1, exp: "SOPs maintain consistency, safety, and operational standards." },
+            { id: 66, pillar: "Result Orientation", cat: "Outflow Optimization", question: "66. Reducing redundant documentation in public service delivery directly impacts:", options: ["A) Operational cycle time and citizen customer satisfaction", "B) Fiduciary tax rates", "C) Employee turnover negatively", "D) Strategic vision validity"], correct: 0, exp: "Eliminating paperwork accelerates service delivery and citizen satisfaction." },
+            { id: 67, pillar: "Result Orientation", cat: "Governance Accountability", question: "67. Public sector accountability mechanisms ensure that public officials:", options: ["A) Possess immunity from scrutiny", "B) Are answerable for resource stewardship and policy execution outcomes", "C) Can alter targets arbitrarily", "D) Manage without financial reporting"], correct: 1, exp: "Accountability ensures officials are answerable for resource usage." },
+            { id: 68, pillar: "Result Orientation", cat: "Corrective Action", question: "68. When a project milestone misses its targeted KPI by > 20%, a leader must immediately:", options: ["A) Ignore the variance until final completion", "B) Initiate root-cause analysis and execute a corrective action plan", "C) Lower the target benchmark retroactively", "D) Replace the entire project team"], correct: 1, exp: "Significant variance demands root-cause diagnosis and corrective action." },
+            { id: 69, pillar: "Result Orientation", cat: "Dashboard Management", question: "69. Executive management dashboards display Real-Time Key Indicators to:", options: ["A) Replace direct employee contact", "B) Enable rapid, data-driven operational decision making", "C) Increase administrative reporting work", "D) Satisfy compliance requirements only"], correct: 1, exp: "Dashboards synthesize real-time operational data for rapid decision-making." },
+            { id: 70, pillar: "Result Orientation", cat: "Institutional Memory", question: "70. Documenting lessons learned at project closure safeguards organizational:", options: ["A) Financial debt", "B) Knowledge assets and institutional memory", "C) Immediate profits", "D) Hierarchy power"], correct: 1, exp: "Post-project reviews preserve institutional knowledge for future initiatives." }
         ];
-
-        // Fill remaining questions up to 72 MCQs covering all specified domains
-        const domainPillars = ["Work Execution", "Human Relations", "Result Orientation"];
-        const competencyCategories = [
-            "Role-Modeling Leadership", "Communication", "Teamwork", "Emotional Intelligence",
-            "Ethics", "Diversity & Inclusion", "Time Management", "Carrying Out Responsibility",
-            "Public Stewardship", "Conflict Resolution", "Delegation Governance", "KPI Scorecards"
-        ];
-
-        for (let i = 11; i <= 72; i++) {
-            const pIndex = i % 3;
-            const cIndex = i % competencyCategories.length;
-            const pillar = domainPillars[pIndex];
-            const cat = competencyCategories[cIndex];
-
-            examQuestionsData.push({
-                id: i,
-                pillar: pillar,
-                category: cat,
-                question: `[Competency Scenario ${i} - ${cat}]: How should an executive handle complex operational challenges under high pressure in ${cat.toLowerCase()}?`,
-                options: [
-                    `A) Standard approach prioritizing rigid compliance without evaluating public value`,
-                    `B) Exemplary leadership response balancing stakeholder empathy, strategic goals, and ethical integrity`,
-                    `C) Defer decision making indefinitely to avoid operational risk`,
-                    `D) Unilaterally override team input and enforce autocratic control`
-                ],
-                correct: 1, // Option B is consistently the best competency response
-                explanation: `Under ${cat}, exemplary leaders demonstrate balanced decision-making, ethical alignment, and active stakeholder collaboration.`
-            });
-        }
 
         /* ==========================================================================
-           APP INITIALIZATION & STATE MANAGEMENT
+           APPLICATION CORE LOGIC
            ========================================================================== */
-        const state = {
-            m1Progress: new Set(),
-            m2Progress: new Set(),
-            examAnswers: {},
-            examSubmitted: false,
-            bestExamScore: 0
+        const examState = {
+            answers: {},
+            showKey: false
         };
 
         window.onload = function() {
             renderCurriculum();
             renderExamQuestions();
-            updateDashboardStats();
             updateIdeaScore();
         };
 
-        // Navigation Switcher
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
@@ -1260,31 +1052,19 @@
         }
 
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         }
 
-        /* ==========================================================================
-           CURRICULUM RENDERER (MODULE 1 & 2 ACCORDIONS)
-           ========================================================================== */
         function renderCurriculum() {
-            // Render M1
-            const m1Container = document.getElementById('m1-chapters-container');
-            m1Container.innerHTML = module1Data.map(ch => createChapterCard(ch, 'm1')).join('');
-
-            // Render M2
-            const m2Container = document.getElementById('m2-chapters-container');
-            m2Container.innerHTML = module2Data.map(ch => createChapterCard(ch, 'm2')).join('');
+            document.getElementById('m1-chapters-container').innerHTML = module1FullData.map(ch => createChapterCard(ch, 'm1')).join('');
+            document.getElementById('m2-chapters-container').innerHTML = module2FullData.map(ch => createChapterCard(ch, 'm2')).join('');
         }
 
-        function createChapterCard(ch, modPrefix) {
+        function createChapterCard(ch, prefix) {
             return `
-                <div class="glass-card rounded-xl border border-slate-800 overflow-hidden transition-all">
+                <div class="glass-card rounded-xl border border-slate-800 overflow-hidden transition-all search-target">
                     <div onclick="toggleChapter('${ch.id}')" class="p-4 bg-slate-900/80 hover:bg-slate-800/80 cursor-pointer flex items-center justify-between select-none">
-                        <div class="flex items-center space-x-3">
-                            <input type="checkbox" onchange="event.stopPropagation(); toggleChapterComplete('${modPrefix}', '${ch.id}')" id="chk-${ch.id}" class="w-4 h-4 accent-emerald-500 rounded cursor-pointer">
-                            <h3 class="font-semibold text-sm text-slate-100">${ch.title}</h3>
-                        </div>
+                        <h3 class="font-semibold text-sm text-slate-100">${ch.title}</h3>
                         <i id="icon-${ch.id}" class="fa-solid fa-chevron-down text-slate-500 text-xs transition-transform duration-200"></i>
                     </div>
                     <div id="body-${ch.id}" class="hidden p-5 border-t border-slate-800/60 bg-slate-950/40 text-slate-300 text-xs leading-relaxed space-y-3">
@@ -1295,14 +1075,12 @@
         }
 
         function toggleChapter(chId) {
-            const body = document.getElementById(`body-${chId}`);
-            const icon = document.getElementById(`icon-${chId}`);
-            body.classList.toggle('hidden');
-            icon.classList.toggle('rotate-180');
+            document.getElementById(`body-${chId}`).classList.toggle('hidden');
+            document.getElementById(`icon-${chId}`).classList.toggle('rotate-180');
         }
 
         function toggleAllChapters(modPrefix, expand) {
-            const data = modPrefix === 'm1' ? module1Data : module2Data;
+            const data = modPrefix === 'm1' ? module1FullData : module2FullData;
             data.forEach(ch => {
                 const body = document.getElementById(`body-${ch.id}`);
                 const icon = document.getElementById(`icon-${ch.id}`);
@@ -1316,193 +1094,124 @@
             });
         }
 
-        function toggleChapterComplete(modPrefix, chId) {
-            const set = modPrefix === 'm1' ? state.m1Progress : state.m2Progress;
-            const chk = document.getElementById(`chk-${chId}`);
-            if(chk.checked) {
-                set.add(chId);
-            } else {
-                set.delete(chId);
-            }
-            updateDashboardStats();
-        }
-
-        function updateDashboardStats() {
-            document.getElementById('dash-m1-status').innerText = `${state.m1Progress.size} / 15`;
-            document.getElementById('dash-m2-status').innerText = `${state.m2Progress.size} / 16`;
-
-            const totalChapters = 31;
-            const completed = state.m1Progress.size + state.m2Progress.size;
-            const pct = Math.round((completed / totalChapters) * 100);
-            document.getElementById('overall-progress-pct').innerText = `${pct}% Completed`;
-        }
-
-        /* ==========================================================================
-           SUBTOOLS LOGIC
-           ========================================================================== */
-        function switchSubTool(subId) {
-            document.querySelectorAll('.subtool-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`subtool-${subId}`).classList.remove('hidden');
-
-            document.querySelectorAll('.subtool-btn').forEach(btn => {
-                btn.classList.remove('text-brand-400', 'border-brand-500');
-                btn.classList.add('text-slate-400', 'border-transparent');
-            });
-
-            const activeBtn = document.getElementById(`subtool-tab-${subId}`);
-            if(activeBtn) {
-                activeBtn.classList.remove('text-slate-400', 'border-transparent');
-                activeBtn.classList.add('text-brand-400', 'border-brand-500');
-            }
-        }
-
-        // 1. Idea Scoring Calculator
-        function updateIdeaScore() {
-            const weights = [0.25, 0.20, 0.15, 0.15, 0.10, 0.10, 0.05];
-            let totalWeightedScore = 0;
-
-            for(let i = 1; i <= 7; i++) {
-                const val = parseInt(document.getElementById(`score-c${i}`).value);
-                document.getElementById(`val-c${i}`).innerText = `${val} / 5`;
-                // Score normalized out of 100: (val / 5) * weight * 100
-                totalWeightedScore += (val / 5) * weights[i-1] * 100;
-            }
-
-            const finalScore = totalWeightedScore.toFixed(1);
-            document.getElementById('final-idea-score').innerText = finalScore;
-
-            const badge = document.getElementById('idea-verdict-badge');
-            if(finalScore >= 80) {
-                badge.className = "inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
-                badge.innerText = "Priority 1 Innovation - Fast Track Execution";
-            } else if(finalScore >= 60) {
-                badge.className = "inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30";
-                badge.innerText = "Moderate Viability - SCAMPER Refinement Required";
-            } else {
-                badge.className = "inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/30";
-                badge.innerText = "High Risk / Low Yield - Reject or Re-evaluate";
-            }
-        }
-
-        function resetScoringCalculator() {
-            for(let i = 1; i <= 7; i++) {
-                document.getElementById(`score-c${i}`).value = 3;
-            }
-            updateIdeaScore();
-        }
-
-        function saveIdeaResult() {
-            const score = document.getElementById('final-idea-score').innerText;
-            alert(`Idea evaluation result of ${score}/100 saved to your local executive session!`);
-        }
-
-        // 2. Case Study Simulator Feedback
-        function evalCaseSim(module, choice) {
-            const fbBox = document.getElementById(`case-feedback-${module}`);
-            fbBox.classList.remove('hidden');
-
-            if(module === 'm1') {
-                if(choice === 'A') {
-                    fbBox.className = "p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-200 text-xs leading-relaxed";
-                    fbBox.innerHTML = `<strong><i class="fa-solid fa-circle-check mr-1"></i> Excellent Choice!</strong> Applying SCAMPER (Substitute & Eliminate) addresses the root cause of procedural delay, achieving long-term efficiency without ballooning payroll expenses.`;
-                } else {
-                    fbBox.className = "p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-200 text-xs leading-relaxed";
-                    fbBox.innerHTML = `<strong><i class="fa-solid fa-circle-xmark mr-1"></i> Sub-optimal Strategy.</strong> Option ${choice} treats symptoms through brute force or extra cost without tackling inefficient process bottlenecks.`;
-                }
-            } else {
-                if(choice === 'B') {
-                    fbBox.className = "p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-200 text-xs leading-relaxed";
-                    fbBox.innerHTML = `<strong><i class="fa-solid fa-circle-check mr-1"></i> Exemplary Leadership!</strong> Establishing a clear Authority-Responsibility-Accountability (ARA) matrix resolves role ambiguity and restores peer trust.`;
-                } else {
-                    fbBox.className = "p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-200 text-xs leading-relaxed";
-                    fbBox.innerHTML = `<strong><i class="fa-solid fa-circle-xmark mr-1"></i> Sub-optimal Strategy.</strong> Option ${choice} either creates micromanagement bottlenecks or abdicates managerial accountability.`;
-                }
-            }
-        }
-
-        // 3. PDP Print Function
-        function printPDP() {
-            window.print();
-        }
-
-        /* ==========================================================================
-           EXAM ENGINE LOGIC (70+ MCQS)
-           ========================================================================== */
         function renderExamQuestions() {
-            const filter = document.getElementById('exam-pillar-filter').value;
             const container = document.getElementById('exam-questions-container');
-
-            const filteredQuestions = examQuestionsData.filter(q => filter === 'ALL' || q.pillar === filter);
-
-            container.innerHTML = filteredQuestions.map((q, idx) => `
-                <div class="glass-card p-5 rounded-xl border border-slate-800 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-brand-500/20 text-brand-300 border border-brand-500/30">
-                            Q${q.id} • ${q.pillar} • ${q.category}
+            container.innerHTML = testBank70UniqueMCQs.map(q => `
+                <div class="glass-card p-5 rounded-xl border border-slate-800 space-y-3 search-target">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                            Q${q.id} • ${q.pillar} • ${q.cat}
                         </span>
                     </div>
                     <p class="text-sm font-semibold text-slate-100">${q.question}</p>
-                    
                     <div class="space-y-2 pt-1">
-                        ${q.options.map((opt, oIdx) => `
-                            <label class="flex items-center p-3 rounded-lg bg-slate-900/70 border border-slate-800 hover:border-slate-700 cursor-pointer transition-all text-xs text-slate-300">
-                                <input type="radio" name="question-${q.id}" value="${oIdx}" onchange="recordExamAnswer(${q.id}, ${oIdx})" ${state.examAnswers[q.id] === oIdx ? 'checked' : ''} class="w-4 h-4 accent-brand-500 mr-3">
+                        ${q.options.map((opt, idx) => `
+                            <label class="flex items-center p-3 rounded-lg bg-slate-900/70 border border-slate-800 hover:border-slate-700 cursor-pointer text-xs text-slate-300">
+                                <input type="radio" name="exam-q-${q.id}" value="${idx}" onchange="recordAnswer(${q.id}, ${idx})" ${examState.answers[q.id] === idx ? 'checked' : ''} class="w-4 h-4 accent-purple-500 mr-3">
                                 <span>${opt}</span>
                             </label>
                         `).join('')}
                     </div>
-
-                    <div id="explanation-${q.id}" class="hidden p-3 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-400">
-                        <strong class="text-emerald-400">Explanation:</strong> ${q.explanation}
+                    <div id="exp-${q.id}" class="${examState.showKey ? '' : 'hidden'} p-3 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-400">
+                        <strong class="text-emerald-400">Correct Answer: Option ${String.fromCharCode(65 + q.correct)}</strong> — ${q.exp}
                     </div>
                 </div>
             `).join('');
         }
 
-        function recordExamAnswer(qId, optionIdx) {
-            state.examAnswers[qId] = optionIdx;
+        function recordAnswer(qId, optIdx) {
+            examState.answers[qId] = optIdx;
+        }
+
+        function toggleAnswerKeys() {
+            examState.showKey = !examState.showKey;
+            document.getElementById('toggle-ans-text').innerText = examState.showKey ? "Hide Answer Key" : "Show Answer Key";
+            testBank70UniqueMCQs.forEach(q => {
+                const el = document.getElementById(`exp-${q.id}`);
+                if(el) el.classList.toggle('hidden', !examState.showKey);
+            });
         }
 
         function submitExam() {
-            let correctCount = 0;
-            const totalQuestions = examQuestionsData.length;
-
-            examQuestionsData.forEach(q => {
-                const selected = state.examAnswers[q.id];
-                const expBox = document.getElementById(`explanation-${q.id}`);
-                if(expBox) expBox.classList.remove('hidden');
-
-                if(selected === q.correct) {
-                    correctCount++;
-                }
+            let correct = 0;
+            testBank70UniqueMCQs.forEach(q => {
+                if(examState.answers[q.id] === q.correct) correct++;
+                const el = document.getElementById(`exp-${q.id}`);
+                if(el) el.classList.remove('hidden');
             });
 
-            const percentage = Math.round((correctCount / totalQuestions) * 100);
-            state.bestExamScore = Math.max(state.bestExamScore, percentage);
+            const total = testBank70UniqueMCQs.length;
+            const pct = Math.round((correct / total) * 100);
 
-            // Update Dashboard score
-            document.getElementById('dash-exam-score').innerText = `${state.bestExamScore}%`;
-
-            // Display Exam Summary
-            const dashboard = document.getElementById('exam-score-dashboard');
-            dashboard.classList.remove('hidden');
-            document.getElementById('final-exam-percentage').innerText = `${percentage}%`;
-            document.getElementById('final-exam-counts').innerText = `${correctCount} / ${totalQuestions} Correct`;
-            document.getElementById('final-exam-bar').style.width = `${percentage}%`;
+            const dash = document.getElementById('exam-score-dashboard');
+            dash.classList.remove('hidden');
+            document.getElementById('final-exam-percentage').innerText = `${pct}%`;
+            document.getElementById('final-exam-counts').innerText = `${correct} / ${total} Correct`;
+            document.getElementById('final-exam-bar').style.width = `${pct}%`;
 
             const verdict = document.getElementById('final-exam-verdict');
-            if(percentage >= 80) {
+            if(pct >= 80) {
                 verdict.className = "text-xs text-emerald-300 bg-emerald-950/60 p-3 rounded-lg border border-emerald-800/80";
-                verdict.innerHTML = `<strong><i class="fa-solid fa-award mr-1"></i> Executive Mastery Achieved!</strong> You demonstrated superior competency across Strategic Thinking, Innovation, and Leadership Governance.`;
-            } else if(percentage >= 60) {
+                verdict.innerText = "Mastery Achieved! Outstanding understanding of Executive Work Execution, Human Relations, and Result Governance.";
+            } else if(pct >= 60) {
                 verdict.className = "text-xs text-amber-300 bg-amber-950/60 p-3 rounded-lg border border-amber-800/80";
-                verdict.innerHTML = `<strong><i class="fa-solid fa-circle-exclamation mr-1"></i> Competent with Development Areas.</strong> Recommended to review Module 1 SCAMPER frameworks and Module 2 Delegation models.`;
+                verdict.innerText = "Competent Executive Baseline. Review flagged chapters in Module 1 & Module 2 to solidify weak competency areas.";
             } else {
                 verdict.className = "text-xs text-rose-300 bg-rose-950/60 p-3 rounded-lg border border-rose-800/80";
-                verdict.innerHTML = `<strong><i class="fa-solid fa-triangle-exclamation mr-1"></i> Development Required.</strong> Please revisit curriculum chapters before retaking the assessment bank.`;
+                verdict.innerText = "Further Study Required. Re-read curriculum chapters before retaking the 70-question behavioral bank.";
             }
 
-            window.scrollTo({ top: dashboard.offsetTop - 80, behavior: 'smooth' });
+            window.scrollTo({ top: dash.offsetTop - 80, behavior: 'smooth' });
+        }
+
+        function switchSubTool(id) {
+            document.querySelectorAll('.subtool-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`subtool-${id}`).classList.remove('hidden');
+            document.querySelectorAll('.subtool-btn').forEach(btn => {
+                btn.classList.remove('text-brand-400', 'border-brand-500');
+                btn.classList.add('text-slate-400', 'border-transparent');
+            });
+            const btn = document.getElementById(`subtool-tab-${id}`);
+            if(btn) {
+                btn.classList.remove('text-slate-400', 'border-transparent');
+                btn.classList.add('text-brand-400', 'border-brand-500');
+            }
+        }
+
+        function updateIdeaScore() {
+            const weights = [0.25, 0.20, 0.15, 0.15, 0.10, 0.10, 0.05];
+            let score = 0;
+            for(let i=1; i<=7; i++) {
+                const val = parseInt(document.getElementById(`score-c${i}`).value);
+                document.getElementById(`val-c${i}`).innerText = `${val} / 5`;
+                score += (val / 5) * weights[i-1] * 100;
+            }
+            const finalScore = score.toFixed(1);
+            document.getElementById('final-idea-score').innerText = finalScore;
+            const badge = document.getElementById('idea-verdict-badge');
+            if(finalScore >= 80) {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+                badge.innerText = "Priority 1 Innovation - Fast Track Execution";
+            } else if(finalScore >= 60) {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30";
+                badge.innerText = "Moderate Priority - SCAMPER Refinement Needed";
+            } else {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold uppercase bg-rose-500/20 text-rose-300 border border-rose-500/30";
+                badge.innerText = "High Risk / Low Return - Reject or Re-evaluate";
+            }
+        }
+
+        function resetScoringCalculator() {
+            for(let i=1; i<=7; i++) document.getElementById(`score-c${i}`).value = 3;
+            updateIdeaScore();
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('global-search').value.toLowerCase();
+            document.querySelectorAll('.search-target').forEach(el => {
+                const text = el.innerText.toLowerCase();
+                el.style.display = text.includes(query) ? '' : 'none';
+            });
         }
     </script>
 </body>
